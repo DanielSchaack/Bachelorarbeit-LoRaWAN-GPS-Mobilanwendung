@@ -1,0 +1,68 @@
+was Testen:
+
+Hardware
+Modultest/Unit Testing Check/CUnit/Embedded Unit/uCUnit .....
+
+Tiefschlaf
+	Aufwachen aus Tiefschlaf auf Bewegung
+	Versetzung in Tiefschlaf
+Datenerfassung Bewegungssensor
+GNSS-Datenerfassung
+Transformation der GNSS-Daten
+Join-Prozess
+LoRaWAN-Übertragung
+
+
+
+Beispielkoordinaten abspeichern für Testen
+
+
+LoRaWAN-Netzwerk
+in Verbindung mit Hardware
+	Join-Prozess
+	LoRaWAN-Übertragung
+Decodierung Daten aus Übertragung
+HTTP-Post an Datenbank mit Daten
+MQTT-Publish des spezifischen Sensors mit Daten
+
+
+
+
+
+Datenbank	(was genau erst später in Analyse möglich)
+API-Funktionen
+	HTTP-POST Request von LoRaWAN-Netzwerk
+	HTTP-GET Request von Mobilanwendung 
+SQL-Anfragen
+
+
+
+
+
+Anwendung
+durch Verwendung von Architekturmuster Entkapselung von Funktionalitäten und Erhöhung Modularität
+Architekturmuster MVC trennt User Interface (View), Datenmodell (Model) und Businesslogik(Controller)
+MVP ist Variation von MVP mit Vorteil erhöhter Testbarkeit durch Isolation von Model und View
+
+HTTP-GET Request für Daten eines Sensors
+Anzeige Straßenansicht
+Anzeige Daten auf Straßenansicht in verschiedenen Formen
+Benachrichtigung 
+
+Unittesting/ Modultest durch Verwendung Testtools wie Mockito/JUnit/NUnit/ATSL...
+
+
+To-Do:
+Borchert
+Versionierung/Github
+GNSS daten überprüfen 
+Abgabeformat
+To-do-Liste anhand Aufbau
+Zugang zu Rechnern/ Visio?
+Gesamtkonzept/UML Hardware
+wie Softwaredokumentation? im Source-Code?
+
+Designentscheidungen wie letzte Byte von long streichen !!
+Testimplementierung Firebase
+Absicherung API?
+Informationen aufschreiben -> Firebase-> API 

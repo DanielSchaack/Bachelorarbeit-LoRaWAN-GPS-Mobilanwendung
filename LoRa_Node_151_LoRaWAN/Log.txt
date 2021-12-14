@@ -1,0 +1,2 @@
+V1.1
+Add ADC read battery voltage function.

@@ -1,0 +1,38 @@
+Anbieter
+
+TheThingsNetwork (Community Edition)
++ Verwendung aller registrierten Gateways
+	->Vergrößerung der Flächenabdeckung
++ Ausgebaute Integrationen
++ kostenlos
+
+- Proprietär
+- maximale Anzahl an Anwendungen und Endgeräte(nicht wichtig für Prototyp)
+- Vorgabe eines Übertragungslimits pro Tag neben 1% Duty Cycle
+
+eigenes LoRaWANNetzwerk
++ Verwendung kompletter Kapazität für Endgeräte/Anwendungen
++ vorhandene Integrationen
++ keine besondere Einschränkung neben Duty Cycle
+
+- nur selbstregistrierte Gateways vorhanden
+	-> geringe Fächenabdeckung
+- Serverkosten
+
+Auswahl: TTN
+maximale Anzahl an Geräten für Prototypen nicht relevant, da nur eine Anwendung mit einem Endgerät
+größere Flächenabdeckung von Nöten, da Endgerät mobil unterwegs und stetig das Netzwerk erreichen sollte
+
+
+Erstellung TTN Anwendung
+Erstellung Endgerät in Anwendung
+Benötigte Schlüssel auf Konsole
+
+Erstellung Decoder
+Erstellung HTTP-POST Integration
+Erstellung MQTT Integration
+
+
+Push-Nachricht anstelle konstanten Abhören
+dies nur für Debug
+bis Wissen darüber wie Push Nachricht nur Abfragen nach alter Position

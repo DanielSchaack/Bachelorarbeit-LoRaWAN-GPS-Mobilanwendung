@@ -1,0 +1,69 @@
+Anwendung
+
+Aufgaben:
+-Angabe des letzten Standort/Angabe aller letzten Standorte 
+-Aufruf/Anzeigen von Standorten im Offline-Modus
+-Benachrichtigung bei Erhalt eines MQTT-Callbacks
+-
+
+Einstellungen?
+- Sensoren
+- Programmierung für das spezifisch vorhandene Sensor
+	oder allgemeine Programmierung
+
+	- Besitz mehrerer Sensoren Möglich?
+		- Registrierung neuer Sensoren
+		- Auswahl zwischen vorhandener
+		- Benachrichtigung spezifisch auf Sensor
+		-
+	- sensorspezifische Daten wie Namen für den Sensor
+	-
+
+- Straßenanzeigenspezifische Eigenschaften?
+	- Angabe aller Ereignisse innerhalb eines Zeitintervalles
+	- Angabe der Ereignisse als Streckenverlauf?
+	- 
+
+
+Vorführung Kontrolle?
+Aufzeichnung rohen GNSS-Daten des Mobiltelefons + Darstellung dieser innerhalb 
+Verwendung externer Anwendung oder Eigenimplementierung?
+- Verwendung vorhandener
+
+Navigation innerhalb der App?
+je nach Umfang der Aufgaben - Navigation zwischen was?
+
+
+
+
+
+
+
+benötigt:
+Streetview
+MQTT
+Benachrichtigung/Notification
+Datenbank
+Berechtigungen (Internet, perma aktiv im Hintergrund, Speicher ect?)
+
+Lösungsansätze
+Streetview:
+- Google Maps Android API v2 	https://developer.android.com/training/maps
+- OpenStreetMap 		https://wiki.openstreetmap.org/wiki/Android#Libraries_for_developers
+z.B.	- LocationMapViewer 	https://wiki.openstreetmap.org/wiki/LocationMapViewer
+	- Mapbox Android SDK	https://wiki.openstreetmap.org/wiki/Mapbox_GL
+
+MQTT:
+- HiveMQ 			https://hivemq.github.io/hivemq-mqtt-client/docs/quick-start/
+- Paho MQTT			https://github.com/eclipse/paho.mqtt.android
+
+
+Android-Dev:
+Benachrichtigung			https://developer.android.com/guide/topics/ui/notifiers/notifications
+Datenbank: Room-Bibliothek 		https://developer.android.com/training/data-storage/room 
+	alternativ direkt SQLite
+Berechtigung/Permission: 		https://developer.android.com/guide/topics/permissions/overview
+- aktiv im Hintergrund: Wake_Lock 	https://developer.android.com/training/scheduling/wakelock#cpu
+	Alternativ WakefulBroadcast
+
+

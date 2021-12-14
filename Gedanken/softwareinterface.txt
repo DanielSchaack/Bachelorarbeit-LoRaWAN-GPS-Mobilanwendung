@@ -1,0 +1,7 @@
+•	Das Hardwaresystem soll mit dem Beschleunigungsmesser kommunizieren, um eine Bewegung zu ermitteln.
+•	Das Hardwaresystem soll mit dem GNSS-Modul kommunizieren, um den aktuellen Standort zu erfahren.
+•	Das Hardwaresystem soll mit dem LoRaWAN-Netzwerk kommunizieren, um die Standorte bei einer Bewegung zu übertragen.
+•	Das LoRaWAN-Netzwerk soll mit dem Webserver kommunizieren, um die Standortdaten von Hardwaresystemen weiterzuleiten.
+•	Der Webserver soll mit der einem Benachrichtigungsdienst kommunizieren, um Benachrichtigungen an Smartphones mit installierter Mobilanwendung zu senden.
+•	Die Mobilanwendung soll mit dem Webserver kommunizieren, um die benötigten Daten für die Anwendung zu ermitteln.
+•	Die Anwendung soll mit einem Routingdienst kommunizieren, um die Route zwischen Standorten zu erfahren.
