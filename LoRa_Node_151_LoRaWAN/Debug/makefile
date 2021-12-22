@@ -63,8 +63,8 @@ all: main-build
 main-build: LoRa_Node_151_LoRaWAN.elf secondary-outputs
 
 # Tool invocations
-LoRa_Node_151_LoRaWAN.elf: $(OBJS) $(USER_OBJS) C:\Users\Schaackii\Desktop\Bachelor\LoRaWAN\Bachelor\Hardware\BArbeit\LoRa_Node_151\STM32\Repository\LoRa_Node_151_LoRaWAN\STM32L151CCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
-	arm-none-eabi-gcc -o "LoRa_Node_151_LoRaWAN.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Schaackii\Desktop\Bachelor\LoRaWAN\Bachelor\Hardware\BArbeit\LoRa_Node_151\STM32\Repository\LoRa_Node_151_LoRaWAN\STM32L151CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LoRa_Node_151_LoRaWAN.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
+LoRa_Node_151_LoRaWAN.elf: $(OBJS) $(USER_OBJS) C:\Users\Schaackii\Desktop\Bachelor\Arbeit\Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung\LoRa_Node_151_LoRaWAN\STM32L151CCUX_FLASH.ld makefile objects.list $(OPTIONAL_TOOL_DEPS)
+	arm-none-eabi-gcc -o "LoRa_Node_151_LoRaWAN.elf" @"objects.list" $(USER_OBJS) $(LIBS) -mcpu=cortex-m3 -T"C:\Users\Schaackii\Desktop\Bachelor\Arbeit\Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung\LoRa_Node_151_LoRaWAN\STM32L151CCUX_FLASH.ld" --specs=nosys.specs -Wl,-Map="LoRa_Node_151_LoRaWAN.map" -Wl,--gc-sections -static --specs=nano.specs -mfloat-abi=soft -mthumb -Wl,--start-group -lc -lm -Wl,--end-group
 	@echo 'Finished building target: $@'
 	@echo ' '
 

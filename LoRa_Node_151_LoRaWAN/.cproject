@@ -91,8 +91,6 @@
                                     									
                                     <listOptionValue builtIn="false" value="ACTIVE_CLASS=CLASS_A"/>
                                     									
-                                    <listOptionValue builtIn="false" value="USE_DEBUGGER"/>
-                                    									
                                     <listOptionValue builtIn="false" value="REGION_EU868"/>
                                     									
                                     <listOptionValue builtIn="false" value="DEBUG"/>
@@ -263,7 +261,13 @@
                                     									
                                     <listOptionValue builtIn="false" value="STM32L151xC"/>
                                     									
-                                    <listOptionValue builtIn="false" value="USE_DEBUGGER"/>
+                                    <listOptionValue builtIn="false" value="REGION_EU868"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="ACTIVE_CLASS=CLASS_A"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="ACTIVE_REGION=LORAMAC_REGION_EU868"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="DEBUG"/>
                                     								
                                 </option>
                                 								
@@ -278,6 +282,8 @@
                                     <listOptionValue builtIn="false" value="../Drivers/CMSIS/Device/ST/STM32L1xx/Include"/>
                                     									
                                     <listOptionValue builtIn="false" value="../Drivers/STM32L1xx_HAL_Driver/Inc/Legacy"/>
+                                    									
+                                    <listOptionValue builtIn="false" value="../Inc/region"/>
                                     								
                                 </option>
                                 								

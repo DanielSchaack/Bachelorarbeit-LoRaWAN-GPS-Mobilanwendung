@@ -7,8 +7,8 @@ HeaderPath=Drivers\STM32L1xx_HAL_Driver\Inc;Drivers\STM32L1xx_HAL_Driver\Inc\Leg
 CDefines=USE_HAL_DRIVER;STM32L151xC;USE_HAL_DRIVER;USE_HAL_DRIVER;
 
 [PreviousGenFiles]
-HeaderPath=C:/Users/Praktikant/Desktop/LoRaWAN/Bachelor/Hardware/BArbeit/LoRa_Node_151/STM32/Repository/LoRa_Node_151_LoRaWAN/Inc
+HeaderPath=C:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/LoRa_Node_151_LoRaWAN/Inc
 HeaderFiles=stm32l1xx_it.h;stm32l1xx_hal_conf.h;main.h;
-SourcePath=C:/Users/Praktikant/Desktop/LoRaWAN/Bachelor/Hardware/BArbeit/LoRa_Node_151/STM32/Repository/LoRa_Node_151_LoRaWAN/Src
+SourcePath=C:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/LoRa_Node_151_LoRaWAN/Src
 SourceFiles=stm32l1xx_it.c;stm32l1xx_hal_msp.c;main.c;
 

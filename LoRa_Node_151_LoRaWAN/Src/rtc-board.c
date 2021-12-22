@@ -16,6 +16,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 #include <math.h>
 #include "board.h"
 #include "rtc-board.h"
+#include "timer.h"
 
 /*!
  * RTC Time base in ms
@@ -341,8 +342,12 @@ void RtcEnterLowPowerStopMode( void )
         HAL_PWREx_EnableFastWakeUp( );
 
         // Enter Stop Mode
-//        DebugPrintf("enterLowPOWER\r\n");
+        HAL_SuspendTick();
+
         HAL_PWR_EnterSTOPMode( PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI );
+
+        HAL_ResumeTick();
+
     }
 }
 

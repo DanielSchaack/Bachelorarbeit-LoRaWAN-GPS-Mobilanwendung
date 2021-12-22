@@ -30,6 +30,8 @@
 #include "Commissioning.h"
 #include "LoRaWan_APP.h"
 #include <stdint.h>
+
+#include "Bewegungssensor.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -73,13 +75,13 @@ uint32_t devAddr =  ( uint32_t )0x007e6ae1;
 uint16_t userChannelsMask[6]={ 0x00FF,0x0000,0x0000,0x0000,0x0000,0x0000 };
 
 /*LoraWan region, select in arduino IDE tools*/
-LoRaMacRegion_t loraWanRegion =LORAMAC_REGION_EU868;
+LoRaMacRegion_t loraWanRegion = LORAMAC_REGION_EU868;
 
 /*LoraWan Class, Class A and Class C are supported*/
 DeviceClass_t  loraWanClass = CLASS_A;
 
 /*the application data transmission duty cycle.  value in [ms].*/
-uint32_t appTxDutyCycle = 150000;
+uint32_t appTxDutyCycle;
 
 /*OTAA or ABP*/
 bool overTheAirActivation = true;
@@ -113,6 +115,9 @@ uint8_t appPort = 2;
 * the datarate, in case the LoRaMAC layer did not receive an acknowledgment
 */
 uint8_t confirmedNbTrials = 8;
+
+uint32_t DutyCycle = 15000;
+extern bool WurdeBewegt;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -133,8 +138,19 @@ extern void USB_VCP_init(void);
 
 static void prepareTxFrame( uint8_t port )
 {
-    GNSS_GetPVTData(&GNSS_Handle);
-    GNSS_ParseBuffer(&GNSS_Handle);
+	bool DatenValide = true;
+	while(DatenValide)
+	{
+		GNSS_GetPVTData(&GNSS_Handle);
+		GNSS_ParseBuffer(&GNSS_Handle);
+
+		if((GNSS_Handle.fLat>-90) && (GNSS_Handle.fLat<90) && (GNSS_Handle.fLat!=0)
+				&& (GNSS_Handle.fLon>-180) && (GNSS_Handle.fLon<180) && (GNSS_Handle.fLon!=0))
+		{
+			DatenValide = false;
+		}
+	}
+
 
     appDataSize = 8;
     memcpy(&appData[0], &GNSS_Handle.fLat,4);
@@ -182,13 +198,12 @@ int main(void)
   MX_DMA_Init();
   MX_RTC_Init();
   MX_SPI1_Init();
-  MX_ADC_Init();
-
-  /* USER CODE BEGIN 2 */
-
-  BoardInitMcu();
-
   MX_USART1_UART_Init();
+  MX_ADC_Init();
+  /* USER CODE BEGIN 2 */
+  BoardInitMcu();
+  BewegungssensorInit();
+  appTxDutyCycleInit();
 
   GNSS_Init(&GNSS_Handle, &huart1);
   GNSS_LoadConfig(&GNSS_Handle);
@@ -196,6 +211,7 @@ int main(void)
   deviceState = DEVICE_STATE_INIT;
   /* USER CODE END 2 */
 
+  /* Infinite loop */
   /* USER CODE BEGIN WHILE */
   while (1)
   {
@@ -215,8 +231,13 @@ int main(void)
 			}
 			case DEVICE_STATE_SEND:
 			{
-				prepareTxFrame( appPort );
-				LoraWanSend();
+				if(WurdeBewegt)
+				{
+					prepareTxFrame( appPort );
+					LoraWanSend();
+					SensorAktivieren();
+				}
+
 				deviceState = DEVICE_STATE_CYCLE;
 				break;
 			}
@@ -472,6 +493,7 @@ static void MX_SPI1_Init(void)
   */
 static void MX_USART1_UART_Init(void)
 {
+
   /* USER CODE BEGIN USART1_Init 0 */
 
   /* USER CODE END USART1_Init 0 */
@@ -529,19 +551,37 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3|GPIO_PIN_8, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14|GPIO_PIN_3, GPIO_PIN_RESET);
 
-  /*Configure GPIO pins : PB3 PB8 */
-  GPIO_InitStruct.Pin = GPIO_PIN_3|GPIO_PIN_8;
+  /*Configure GPIO pins : PB14 PB3 */
+  GPIO_InitStruct.Pin = GPIO_PIN_14|GPIO_PIN_3;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+  /*Configure GPIO pin : PB15 */
+  GPIO_InitStruct.Pin = GPIO_PIN_15;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
+  GPIO_InitStruct.Pull = GPIO_NOPULL;
+  HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
 }
 
 /* USER CODE BEGIN 4 */
 
+void appTxDutyCycleInit()
+{
+	appTxDutyCycle = DutyCycle;
+}
+
+void SetappTxDutyCycleInit(uint32_t DutyCycle)
+{
+	appTxDutyCycle = DutyCycle;
+}
 /* USER CODE END 4 */
 
 /**

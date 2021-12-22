@@ -14,6 +14,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 */
 #include "board.h"
 #include "rtc-board.h"
+#include "Bewegungssensor.h"
 
 
 /*!
@@ -399,6 +400,7 @@ void TimerLowPowerHandler( void )
             {
 #if !defined( USE_DEBUGGER )
                 RtcEnterLowPowerStopMode( );
+                PruefeInterruptStatus();
 #endif
             }
         }

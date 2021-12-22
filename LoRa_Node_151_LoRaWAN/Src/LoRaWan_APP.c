@@ -14,6 +14,8 @@ CubeCell_NeoPixel pixels(1, RGB, NEO_GRB + NEO_KHZ800);
 #include "RegionAS923.h"
 #endif
 
+#include "Bewegungssensor.h"
+
 
 /*loraWan default Dr when adr disabled*/
 #ifdef REGION_US915
@@ -182,6 +184,7 @@ static void McpsConfirm( McpsConfirm_t *mcpsConfirm )
 				// Check TxPower
 				// Check AckReceived
 				// Check NbTrials
+				PruefeConfirm(mcpsConfirm);
 				break;
 			}
 			case MCPS_PROPRIETARY:
@@ -471,6 +474,7 @@ void LoraWanInit(DeviceClass_t lorawanClass,LoRaMacRegion_t region)
 	LoRaMacCallback.GetBatteryLevel = BoardGetBatteryLevel;
 	LoRaMacCallback.GetTemperatureLevel = NULL;
 	LoRaMacInitialization( &LoRaMacPrimitive, &LoRaMacCallback,region);
+
 	TimerStop( &TxNextPacketTimer );
 	TimerInit( &TxNextPacketTimer, OnTxNextPacketTimerEvent );
 

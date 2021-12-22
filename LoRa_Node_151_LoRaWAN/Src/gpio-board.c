@@ -14,6 +14,9 @@ Maintainer: Miguel Luis and Gregory Cristian
 */
 #include "board.h"
 #include "gpio-board.h"
+#include "Bewegungssensor.h"
+
+extern bool BewegungInterruptAusgeloest;
 
 static GpioIrqHandler *GpioIrq[16];
 
@@ -312,6 +315,11 @@ void EXTI15_10_IRQHandler( void )
 
 void HAL_GPIO_EXTI_Callback( uint16_t gpioPin )
 {
+	if(gpioPin == GPIO_PIN_15) // If The INT Source Is EXTI Line15-10 (B15 Pin)
+    {
+    	BewegungInterruptAusgeloest = true;
+    }
+
     uint8_t callbackIndex = 0;
 
     if( gpioPin > 0 )

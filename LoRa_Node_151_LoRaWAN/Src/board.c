@@ -148,7 +148,7 @@ void BoardInitMcu( void )
     // Set the Vector Table base location at 0x3000
     SCB->VTOR = FLASH_BASE | 0x3000;
 #endif
-    HAL_Init( );
+    //HAL_Init( );
     
     SystemClockConfig( );
 /*
@@ -169,7 +169,6 @@ void BoardInitMcu( void )
 	DebugPrintf("USB CDC init done!\r\n");
 #endif
 */
-    DebugPrintf("Heltec lora node demo\r\n");
     RtcInit( );
     
     BoardUnusedIoInit( );
@@ -322,12 +321,12 @@ static void BoardUnusedIoInit( void )
 //	GpioInit( &ioPin, UNUSEDPINPA7, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 	GpioInit( &ioPin, UNUSEDPINPA8, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 #if !defined( USE_DEBUGGER )
-	GpioInit( &ioPin, UNUSEDPINPA9, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );  // TX
-	GpioInit( &ioPin, UNUSEDPINPA10, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 ); // RX
+	//GpioInit( &ioPin, UNUSEDPINPA9, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );  // TX
+	//GpioInit( &ioPin, UNUSEDPINPA10, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 ); // RX
 	GpioInit( &ioPin, UNUSEDPINPA11, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 ); // DM
 	GpioInit( &ioPin, UNUSEDPINPA12, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 ); // DP
-	GpioInit( &ioPin, UNUSEDPINPA13, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 ); // SWDIO
-	GpioInit( &ioPin, UNUSEDPINPA14, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 ); // SWCLK
+	//GpioInit( &ioPin, UNUSEDPINPA13, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 ); // SWDIO
+	//GpioInit( &ioPin, UNUSEDPINPA14, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 ); // SWCLK
 #endif
 	GpioInit( &ioPin, UNUSEDPINPA15, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 
@@ -345,8 +344,8 @@ static void BoardUnusedIoInit( void )
 //	GpioInit( &ioPin, UNUSEDPINPB11, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 	GpioInit( &ioPin, UNUSEDPINPB12, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 	GpioInit( &ioPin, UNUSEDPINPB13, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-	GpioInit( &ioPin, UNUSEDPINPB14, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-	GpioInit( &ioPin, UNUSEDPINPB15, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+//	GpioInit( &ioPin, UNUSEDPINPB14, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+//	GpioInit( &ioPin, UNUSEDPINPB15, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 
 	GpioInit( &ioPin, UNUSEDPINPC13, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 
@@ -355,10 +354,14 @@ static void BoardUnusedIoInit( void )
   HAL_DBGMCU_EnableDBGSleepMode( );
   HAL_DBGMCU_EnableDBGStandbyMode( );
 #else
+  HAL_DBGMCU_EnableDBGStopMode( );
+  HAL_DBGMCU_EnableDBGSleepMode( );
+  HAL_DBGMCU_EnableDBGStandbyMode( );
+  /*
     HAL_DBGMCU_DisableDBGSleepMode( );
     HAL_DBGMCU_DisableDBGStopMode( );
     HAL_DBGMCU_DisableDBGStandbyMode( );
-  
+  */
   //���ã����͹����¹ر�SWD�������޷���STLINK������¼���򣡣���
   //    GpioInit( &ioPin, SWDIO, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
   //    GpioInit( &ioPin, SWCLK, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
