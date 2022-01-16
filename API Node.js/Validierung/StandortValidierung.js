@@ -8,7 +8,7 @@ const NeuValidierung = (HWSName, Breitengrad, Laengengrad) => {
         grad: Joi.number().required()
     });
 
-    return schema.validate({name: BName, grad: Breitengrad, grad: Laengengrad});
+    return schema.validate({name: HWSName, grad: Breitengrad, grad: Laengengrad});
 }
 
 const SucheValidierung = (HName, ZeitUntergrenze, ZeitObergrenze, BGVorhanden, BGUntergrenze, BGObergrenze, LGVorhanden,  LGUntergrenze, LGObergrenze) => {

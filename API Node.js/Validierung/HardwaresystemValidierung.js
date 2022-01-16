@@ -18,13 +18,13 @@ const VerknuepfungValidierung = (BName, HName, BPasswort) => {
     return schema.validate({name: BName, name: HName, passwort: BPasswort});
 }
 
-const NeuValidierung = (BName, BPasswort) => {
+const NeuValidierung = (HName, HPasswort) => {
     const schema = Joi.object({
         name: Joi.string().min(5).required(),
         passwort: Joi.string().min(8).required()
     });
 
-    return schema.validate({name: BName, passwort: BPasswort});
+    return schema.validate({name: HName, passwort: HPasswort});
 }
 
 module.exports.VerknUebersichtValidierung = VerknUebersichtValidierung;

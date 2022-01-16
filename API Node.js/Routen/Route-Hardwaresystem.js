@@ -4,6 +4,7 @@ const bcrypt = require('bcryptjs');
 
 const {VerknUebersichtValidierung, VerknuepfungValidierung, NeuValidierung} = require('../Validierung/HardwaresystemValidierung');
 
+//Gebe eine Übersicht über alle vorhandenen Hardwaresysteme
 router.get('/uebersicht', async (req, res) =>{
 
     //Versuche, in der Datenbank nach vorhandenem Hardwaresystemen zu fragen
@@ -12,7 +13,7 @@ router.get('/uebersicht', async (req, res) =>{
         //Rückgabe ist JSON-Objekt mit allen Hardwaresystemen
         const Resultat = await db.pool.query("SELECT HName, HRegDatum FROM Hardwaresystem");
 
-        res.status(200).json({
+        return res.status(200).json({
             status: 'Erfolg',
             message: 'Hardwaresysteme erfolgreich abgefragt',
             data: Resultat
@@ -25,38 +26,43 @@ router.get('/uebersicht', async (req, res) =>{
 
 });
 
+//Gebe Übersicht über alle verknüpften Hardwaresysteme eines Nutzers
 router.get('/verknuepfunguebersicht', async (req, res) =>{
     //Eingabe
     const BName = req.body.bname;
-    const HName = req.body.hname;
 
     //Validierung der Eingabe
-    const ValError = VerknUebersichtValidierung(BName, HName)
+    const ValError = VerknUebersichtValidierung(BName)
     if(!ValError.error)
     {
         //Validierung ist gelungen, kein Fehler in der Eingabe
-
         try{
-            //Frage in Datenbank nach allen Hardwaresystem mit angegebenen BNamen nach
+            //Frage in Datenbank nach allen Hardwaresystem mit angegebenen Benutzer nach
             //Rückgabe ist JSON-Objekt mit allen Hardwaresystemen eines Benutzers
             const Resultat = await db.pool.query("SELECT HName, HRegDatum FROM Hardwaresystem WHERE BName = ?", [BName]);
     
-            res.status(200).json({
+            //Falls der erste Eintrag im Resultat leer ist, dann sind keine Verknüpfungen vom angegebenen Benutzer vorhanden
+            if(!Resultat[0]){
+                return res.status(400).send('Es sind keine Verknüpfungen vom angegebenen Benutzer vorhanden.');
+            }else{
+            //Es sind Einträge vorhanden, sende diese in der Antwort
+            return res.status(200).json({
                 status: 'Erfolg',
-                message: 'Hardwaresysteme erfolgreich abgefragt',
+                message: 'Hardwaresystemverknüpfungen erfolgreich abgefragt.',
                 data: Resultat
-            });
-    
+                });
+            }    
         }catch(err){
             //keine Anfrage möglich
             return res.status(500).send('Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.');
         }
     }else{
         //Validierung ist fehlgeschlagen, Fehler in der Eingabe
-        return res.status(400).send("Fehlerhafte Eingabe.");
+        return res.status(400).send('Fehlerhafte Eingabe.');
     }
 });
 
+//Füge eine Verknüpfung zwischen einem Benutzer und einem Hardwaresystem ein
 router.post('/verknuepfung', async (req, res) =>{
     //Eingabe
     const BName = req.body.bname;
@@ -68,7 +74,6 @@ router.post('/verknuepfung', async (req, res) =>{
     if(!ValError.error)
     {
         //Validierung ist gelungen, kein Fehler in der Eingabe
-
         try{
             //Frage in Datenbank nach den genannten Hardwaresystem nach
             //Rückgabe ist JSON-Objekt mit dem gesuchten Hardwaresystem 
@@ -78,26 +83,25 @@ router.post('/verknuepfung', async (req, res) =>{
             //Ansonsten ist der Benutzername des Hardwaresystems unterschiedlich vom gesuchten Benutzer ist
                 //und prüfe, ob das eingegebene Passwort mit dem Passwort des Hardwaresystems übereinstimmt.
                 //Falls dem so ist, dann überschreibe die bereits verknüpften Benutzernamen mit dem neuen Namen.
-            if(Resultat[0].BName == BName){
+            
+            //Hardwaresystem nicht vorhanden
+            if(!Resultat[0]){
+                return res.status(400).send('Es ist kein Hardwaresystem unter dem angegebenen Namen vorhanden.');
+            }//Hardwaresystem vorhanden, prüfe, ob der Benutzer sich erneut mit den Hardwaresystem verknüpfen möchte
+            else if(Resultat[0].BName == BName){
                 return res.status(400).send('Das Hardwaresystem ist bereits mit diesem Benutzer verknüpft.');
-            }else{
+            }//Neuer Benutzer möchte sich mit dem Hardwaresystem verknüpfen
+            else{
                 const HashPasswort = Resultat[0].HPasswort;
                 const validesPasswort = bcrypt.compareSync(BPasswort, HashPasswort);
 
                 //Prüfe den Vergleich, bei Übereinstimmung Erfolg, bei Verschiedenheit Fehler
                 if(validesPasswort){
-                    try{
-                        const ResultatUpdate = await db.pool.query("UPDATE Hardwaresystem SET BName = ? WHERE HName = ?", [BName, HName]);
-                        if(!ResultatUpdate.error)
-                        {
-                            res.status(200).json({
-                                status: 'Erfolg',
-                                message: 'Hardwaresystem und Benutzer erfolgreich verknüpft.'
-                            });
-                        }else{
-                            return res.status(500).send('Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.');
-                        }
-                    }catch(err){
+                    const ResultatUpdate = await db.pool.query("UPDATE Hardwaresystem SET BName = ? WHERE HName = ?", [BName, HName]);
+                    if(!ResultatUpdate.error)
+                    {
+                        return res.status(200).send('Hardwaresystem und Benutzer erfolgreich verknüpft.');
+                    }else{
                         return res.status(500).send('Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.');
                     }
                 }else{
@@ -108,36 +112,43 @@ router.post('/verknuepfung', async (req, res) =>{
             //keine Anfrage möglich
             return res.status(500).send('Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.');
         }
-
     }else{
         //Validierung ist fehlgeschlagen, Fehler in der Eingabe
         return res.status(400).send("Fehlerhafte Eingabe.");
     }
 });
 
+//Füge ein neues Hardwaresystem ein
 router.post('/neu', async (req, res) =>{
     //Eingabe
-    const BName = req.body.bname;
     const HName = req.body.hname;
-    const BPasswort = req.body.hpasswort;
+    const HPasswort = req.body.hpasswort;
 
     //Validierung der Eingabe
-    const ValError = NeuValidierung(BName, HName, BPasswort)
+    const ValError = NeuValidierung(HName, HPasswort)
     if(!ValError.error)
     {
         try{
-            //Erstelle Hash vom Passwort
-            const salt = bcrypt.genSaltSync(10);
-            const HashPasswort = bcrypt.hashSync(BPasswort, salt);
-            //Füge neuen Benutzer ein
-            const ResultatInsert = await db.pool.query("INSERT INTO Hardwaresystem (HName, HPasswort, BName)"+
-                                            " VALUES(?,?,?)",[HName, HashPasswort, BName]);
+            const Resultat = await db.pool.query("SELECT * FROM Hardwaresystem WHERE HName = ?",[HName]);
 
-            //Prüfe den Rückgabewert, falls kein Fehler, dann melde Erfolg
-            if(!ResultatInsert.error){
-                return res.status(200).send('Hardwaresystem erfolgreich hinzugefügt!');
+            //Falls der erste Eintrag im Resultat leer ist, dann füge das Hardwaresystem hinzu
+            if(!Resultat[0]){
+                //Erstelle Hash vom Passwort
+                const salt = bcrypt.genSaltSync(10);
+                const HashPasswort = bcrypt.hashSync(HPasswort, salt);
+                //Füge neuen Benutzer ein
+                const ResultatInsert = await db.pool.query("INSERT INTO Hardwaresystem (HName, HPasswort, BName)"+
+                                            " VALUES(?,?,'admin')",[HName, HashPasswort]);
+
+                //Prüfe den Rückgabewert, falls kein Fehler, dann melde Erfolg
+                if(!ResultatInsert.error){
+                    return res.status(200).send('Hardwaresystem erfolgreich hinzugefügt!');
+                }else{
+                    return res.status(500).send('Fehler beim Hinzufügen des Hardwaresystems.')
+                }
             }else{
-                return res.status(500).send('Fehler beim Hinzufügen des Hardwaresystems.')
+                //Es sind Einträge vorhanden, somit sende Fehler als Antwort, da somit der angegebene Hardwaresystemname bereits vergeben ist
+                return res.status(400).send('Der angegebene Hardwaresystemname ist bereits vergeben');
             }
         }catch(err){
             return res.status(500).send('Fehler beim Hinzufügen des Hardwaresystems.')
