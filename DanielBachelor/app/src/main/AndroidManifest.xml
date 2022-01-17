@@ -12,7 +12,8 @@
 
         <activity
 
-            android:name=".MainActivity"
+            android:name=".anmeldung.anmeldungActivity"
+            android:label="@string/title_activity_anmeldung"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -20,6 +21,31 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".hauptmenu.hauptmenuActivity"
+            android:label="@string/title_activity_hauptmenu" />
+        <activity
+            android:name=".hwshinzufuegen.hwshinzufuegenActivity"
+            android:label="@string/title_activity_hwshinzufuegen" />
+        <activity
+            android:name=".hwsuebersicht.hwsuebersichtActivity"
+            android:label="@string/title_activity_hwsuebersicht" />
+        <activity
+            android:name=".profil.profilActivity"
+            android:label="@string/title_activity_profil" />
+        <activity
+            android:name=".registrierung.registrierungActivity"
+            android:label="@string/title_activity_registrierung" />
+        <activity
+            android:name=".routenergebnis.routenergebnisActivity"
+            android:label="@string/title_activity_routenergebnis" />
+        <activity
+            android:name=".suche.sucheActivity"
+            android:label="@string/title_activity_suche" />
+        <activity
+            android:name=".suchergebnis.suchergebnisActivity"
+            android:label="@string/title_activity_suchergebnis" />
+
         <service
             android:name=".MyFirebaseService"
             android:exported="false">

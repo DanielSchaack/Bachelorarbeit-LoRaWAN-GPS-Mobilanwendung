@@ -1,3 +1,13 @@
 <resources>
     <string name="app_name">Daniel Bachelor</string>
+
+    <string name="title_activity_anmeldung">anmeldungActivity</string>
+    <string name="title_activity_hauptmenu">hauptmenuActivity</string>
+    <string name="title_activity_hwshinzufuegen">hwshinzufuegenActivity</string>
+    <string name="title_activity_hwsuebersicht">hwsuebersichtActivity</string>
+    <string name="title_activity_profil">profilActivity</string>
+    <string name="title_activity_registrierung">registrierungActivity</string>
+    <string name="title_activity_routenergebnis">routenergebnisActivity</string>
+    <string name="title_activity_suche">sucheActivity</string>
+    <string name="title_activity_suchergebnis">suchergebnisActivity</string>
 </resources>
