@@ -3,7 +3,35 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/activity_anmeldung.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/activity_hauptmenu.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/activity_hwshinzufuegen.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/activity_hwsuebersicht.xml" value="0.20108695652173914" />
         <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/activity_main.xml" value="0.1213768115942029" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/activity_profil.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/activity_registrierung.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/activity_routenergebnis.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/activity_suche.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/activity_suchergebnis.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/activityy_suchergebnis.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/fragment_anmeldung.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/fragment_hauptmenu.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/fragment_hwshinzufuegen.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/fragment_hwsuebersicht.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/fragment_profil.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/fragment_registrierung.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/fragment_routenergebnis.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/fragment_suche.xml" value="0.2" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/fragment_suchergebnis.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/fragment_suchergebnis_liste.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/fragment_suchergebnis_osmdroid.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/hwsuebersicht.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/login_name_passwort.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/recycler_hws_daten.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/recycler_hws_name.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/routenergebnis.xml" value="0.20108695652173914" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/sortieren_drei_buttom.xml" value="0.2" />
+        <entry key="..\:/Users/Schaackii/Desktop/Bachelor/Arbeit/Bachelorarbeit-LoRaWAN-GPS-Mobilanwendung/DanielBachelor/app/src/main/res/layout/test.xml" value="0.20108695652173914" />
       </map>
     </option>
   </component>
