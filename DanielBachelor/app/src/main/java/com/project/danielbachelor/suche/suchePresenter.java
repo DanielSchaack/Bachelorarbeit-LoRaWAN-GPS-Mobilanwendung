@@ -1,7 +1,5 @@
 package com.project.danielbachelor.suche;
 
-import com.project.danielbachelor.routenergebnis.routenergebnisView;
-
 public class suchePresenter implements sucheKontrakt.Presenter{
     private final sucheView mView;
     public suchePresenter(sucheView AV) {

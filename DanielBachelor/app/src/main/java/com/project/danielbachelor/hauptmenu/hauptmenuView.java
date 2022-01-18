@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.project.danielbachelor.anmeldung.anmeldungView;
+import com.project.danielbachelor.R;
 
 
 public class hauptmenuView extends Fragment implements hauptmenuKontrakt.View {
@@ -34,7 +34,8 @@ public class hauptmenuView extends Fragment implements hauptmenuKontrakt.View {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View root = inflater.inflate(R.layout.fragment_hauptmenu, container, false);
+        return root;
     }
 
     @Override

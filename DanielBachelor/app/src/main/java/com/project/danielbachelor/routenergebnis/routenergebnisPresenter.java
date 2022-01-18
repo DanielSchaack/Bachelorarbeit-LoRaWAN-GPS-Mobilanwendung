@@ -1,7 +1,5 @@
 package com.project.danielbachelor.routenergebnis;
 
-import com.project.danielbachelor.registrierung.registrierungView;
-
 public class routenergebnisPresenter implements routenergebnisKontrakt.Presenter{
     private final routenergebnisView mView;
     public routenergebnisPresenter(routenergebnisView AV) {

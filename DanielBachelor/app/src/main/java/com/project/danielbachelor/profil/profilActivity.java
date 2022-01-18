@@ -8,8 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.project.danielbachelor.R;
 import com.project.danielbachelor.funktionen.Generell;
-import com.project.danielbachelor.hwsuebersicht.hwsuebersichtPresenter;
-import com.project.danielbachelor.hwsuebersicht.hwsuebersichtView;
 
 public class profilActivity extends AppCompatActivity {
     private profilPresenter mPresenter;

@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.project.danielbachelor.hwsuebersicht.hwsuebersichtView;
+import com.project.danielbachelor.R;
 
 public class profilView extends Fragment implements profilKontrakt.View {
     private profilKontrakt.Presenter mPresenter;
@@ -34,7 +34,8 @@ public class profilView extends Fragment implements profilKontrakt.View {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View root = inflater.inflate(R.layout.fragment_profil, container, false);
+        return root;
     }
 
     @Override

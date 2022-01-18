@@ -7,8 +7,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.project.danielbachelor.R;
-import com.project.danielbachelor.anmeldung.anmeldungPresenter;
-import com.project.danielbachelor.anmeldung.anmeldungView;
 import com.project.danielbachelor.funktionen.Generell;
 
 public class hauptmenuActivity extends AppCompatActivity {

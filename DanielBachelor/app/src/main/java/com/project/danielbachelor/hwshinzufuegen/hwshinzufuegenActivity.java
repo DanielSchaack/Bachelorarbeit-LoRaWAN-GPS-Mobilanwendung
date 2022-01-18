@@ -8,8 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.project.danielbachelor.R;
 import com.project.danielbachelor.funktionen.Generell;
-import com.project.danielbachelor.hauptmenu.hauptmenuPresenter;
-import com.project.danielbachelor.hauptmenu.hauptmenuView;
 
 public class hwshinzufuegenActivity extends AppCompatActivity {
     private hwshinzufuegenPresenter mPresenter;

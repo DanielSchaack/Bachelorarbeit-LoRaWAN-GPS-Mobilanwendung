@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.project.danielbachelor.profil.profilView;
+import com.project.danielbachelor.R;
 
 public class registrierungView extends Fragment implements registrierungKontrakt.View {
     private registrierungKontrakt.Presenter mPresenter;
@@ -34,7 +34,8 @@ public class registrierungView extends Fragment implements registrierungKontrakt
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View root = inflater.inflate(R.layout.fragment_registrierung, container, false);
+        return root;
     }
 
     @Override

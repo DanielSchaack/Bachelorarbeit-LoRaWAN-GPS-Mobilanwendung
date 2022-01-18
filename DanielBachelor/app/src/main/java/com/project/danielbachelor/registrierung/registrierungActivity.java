@@ -8,8 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.project.danielbachelor.R;
 import com.project.danielbachelor.funktionen.Generell;
-import com.project.danielbachelor.profil.profilPresenter;
-import com.project.danielbachelor.profil.profilView;
 
 public class registrierungActivity extends AppCompatActivity {
     private registrierungPresenter mPresenter;

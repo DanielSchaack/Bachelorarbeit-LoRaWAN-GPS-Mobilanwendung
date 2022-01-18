@@ -8,8 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.project.danielbachelor.R;
 import com.project.danielbachelor.funktionen.Generell;
-import com.project.danielbachelor.routenergebnis.routenergebnisPresenter;
-import com.project.danielbachelor.routenergebnis.routenergebnisView;
 
 public class sucheActivity extends AppCompatActivity {
     private suchePresenter mPresenter;

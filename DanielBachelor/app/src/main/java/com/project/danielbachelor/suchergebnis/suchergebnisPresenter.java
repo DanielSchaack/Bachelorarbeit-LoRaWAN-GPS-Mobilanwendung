@@ -1,7 +1,5 @@
 package com.project.danielbachelor.suchergebnis;
 
-import com.project.danielbachelor.suche.sucheView;
-
 public class suchergebnisPresenter implements suchergebnisKontrakt.Presenter {
     private final suchergebnisView mView;
     public suchergebnisPresenter(suchergebnisView AV) {

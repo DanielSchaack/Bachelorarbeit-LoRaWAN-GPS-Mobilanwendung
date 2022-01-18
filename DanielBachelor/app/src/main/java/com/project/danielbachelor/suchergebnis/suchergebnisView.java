@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.project.danielbachelor.suche.sucheView;
+import com.project.danielbachelor.R;
 
 public class suchergebnisView extends Fragment implements suchergebnisKontrakt.View {
     private suchergebnisKontrakt.Presenter mPresenter;
@@ -34,7 +34,8 @@ public class suchergebnisView extends Fragment implements suchergebnisKontrakt.V
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View root = inflater.inflate(R.layout.fragment_suchergebnis_liste, container, false);
+        return root;
     }
 
     @Override

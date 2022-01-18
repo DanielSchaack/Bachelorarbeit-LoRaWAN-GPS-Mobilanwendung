@@ -8,8 +8,6 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.project.danielbachelor.R;
 import com.project.danielbachelor.funktionen.Generell;
-import com.project.danielbachelor.registrierung.registrierungPresenter;
-import com.project.danielbachelor.registrierung.registrierungView;
 
 public class routenergebnisActivity extends AppCompatActivity {
     private routenergebnisPresenter mPresenter;

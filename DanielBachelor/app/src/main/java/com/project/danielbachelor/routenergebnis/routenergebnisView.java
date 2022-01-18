@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.project.danielbachelor.registrierung.registrierungView;
+import com.project.danielbachelor.R;
 
 public class routenergebnisView extends Fragment implements routenergebnisKontrakt.View {
     private routenergebnisKontrakt.Presenter mPresenter;
@@ -34,7 +34,8 @@ public class routenergebnisView extends Fragment implements routenergebnisKontra
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View root = inflater.inflate(R.layout.fragment_routenergebnis, container, false);
+        return root;
     }
 
     @Override

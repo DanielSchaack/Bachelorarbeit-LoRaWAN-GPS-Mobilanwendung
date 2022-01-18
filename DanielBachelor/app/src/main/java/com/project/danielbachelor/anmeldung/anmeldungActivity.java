@@ -4,7 +4,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
 import com.project.danielbachelor.R;
 import com.project.danielbachelor.funktionen.Generell;
@@ -18,8 +17,8 @@ public class anmeldungActivity extends AppCompatActivity {
         setContentView(R.layout.activity_anmeldung);
 
         //Toolbar-Setup
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
+        //Toolbar toolbar = findViewById(R.id.toolbar);
+        //setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Anmeldung");                       //to-do String Value
 

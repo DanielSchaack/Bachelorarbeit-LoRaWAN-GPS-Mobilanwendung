@@ -9,7 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.project.danielbachelor.hauptmenu.hauptmenuView;
+import com.project.danielbachelor.R;
 
 public class hwshinzufuegenView extends Fragment implements hwshinzufuegenKontrakt.View{
     private hwshinzufuegenKontrakt.Presenter mPresenter;
@@ -34,7 +34,8 @@ public class hwshinzufuegenView extends Fragment implements hwshinzufuegenKontra
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return super.onCreateView(inflater, container, savedInstanceState);
+        View root = inflater.inflate(R.layout.fragment_hwshinzufuegen, container, false);
+        return root;
     }
 
     @Override
