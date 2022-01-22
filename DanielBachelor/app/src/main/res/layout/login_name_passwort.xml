@@ -16,13 +16,13 @@
         app:layout_constraintTop_toTopOf="parent">
 
         <TextView
-            android:id="@+id/textView12"
+            android:id="@+id/EnterNameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView" />
 
         <EditText
-            android:id="@+id/editTextTextPersonName3"
+            android:id="@+id/EnterNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -36,19 +36,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        app:layout_constraintBottom_toTopOf="@id/button7"
+        app:layout_constraintBottom_toTopOf="@id/LoginButton"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="@id/button7"
+        app:layout_constraintStart_toStartOf="@id/LoginButton"
         app:layout_constraintTop_toBottomOf="@id/LLTop">
 
         <TextView
-            android:id="@+id/textView13"
+            android:id="@+id/EnterPasswortTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="TextView" />
 
         <EditText
-            android:id="@+id/editTextTextPassword3"
+            android:id="@+id/EnterPasswortEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
@@ -59,7 +59,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/button7"
+        android:id="@+id/LoginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Button"

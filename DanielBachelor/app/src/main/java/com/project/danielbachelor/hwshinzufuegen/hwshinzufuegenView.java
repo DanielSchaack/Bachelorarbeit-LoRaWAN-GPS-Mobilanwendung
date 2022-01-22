@@ -8,11 +8,14 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.danielbachelor.R;
 
 public class hwshinzufuegenView extends Fragment implements hwshinzufuegenKontrakt.View{
     private hwshinzufuegenKontrakt.Presenter mPresenter;
+
+    private RecyclerView HWSHinzufuegenRecView;
 
     public hwshinzufuegenView() {
     }
@@ -35,6 +38,9 @@ public class hwshinzufuegenView extends Fragment implements hwshinzufuegenKontra
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View root = inflater.inflate(R.layout.fragment_hwshinzufuegen, container, false);
+
+        HWSHinzufuegenRecView = root.findViewById(R.id.HWSHinzufuegenRecView);
+
         return root;
     }
 

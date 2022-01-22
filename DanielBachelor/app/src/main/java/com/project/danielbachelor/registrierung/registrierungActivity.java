@@ -18,8 +18,6 @@ public class registrierungActivity extends AppCompatActivity {
         setContentView(R.layout.activity_anmeldung);
 
         //Toolbar-Setup
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Registrierung");                       //to-do String Value
         ab.setHomeAsUpIndicator(android.R.drawable.ic_menu_sort_by_size);

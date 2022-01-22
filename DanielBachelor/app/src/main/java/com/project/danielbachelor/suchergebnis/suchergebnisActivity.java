@@ -2,6 +2,7 @@ package com.project.danielbachelor.suchergebnis;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -10,6 +11,9 @@ import com.project.danielbachelor.R;
 import com.project.danielbachelor.funktionen.Generell;
 
 public class suchergebnisActivity extends AppCompatActivity {
+    public static String Benutzername_Tag = "Benutzername_Tags";
+    private String mBenutzername;
+
     private suchergebnisPresenter mPresenter;
 
     @Override
@@ -17,9 +21,13 @@ public class suchergebnisActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anmeldung);
 
+        if(savedInstanceState != null){
+            mBenutzername = savedInstanceState.getString(Benutzername_Tag);
+        }else{
+            mBenutzername = getIntent().getStringExtra(Benutzername_Tag);
+        }
+
         //Toolbar-Setup
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Suchergebnis");                       //to-do String Value
         ab.setHomeAsUpIndicator(android.R.drawable.ic_menu_sort_by_size);
@@ -34,5 +42,11 @@ public class suchergebnisActivity extends AppCompatActivity {
         }
 
         mPresenter = new suchergebnisPresenter(AV);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Benutzername_Tag, mBenutzername);
     }
 }

@@ -9,6 +9,6 @@ public interface registrierungKontrakt {
     }
 
     interface Presenter extends BasePresenter {
-
+        void sendeRegistrierung(String Benutzername, String Passwort);
     }
 }

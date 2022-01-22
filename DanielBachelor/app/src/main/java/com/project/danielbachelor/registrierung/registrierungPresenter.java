@@ -11,4 +11,9 @@ public class registrierungPresenter implements registrierungKontrakt.Presenter{
     public void start() {
 
     }
+
+    @Override
+    public void sendeRegistrierung(String Benutzername, String Passwort) {
+
+    }
 }

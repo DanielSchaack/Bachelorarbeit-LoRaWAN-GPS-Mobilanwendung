@@ -10,6 +10,9 @@ import com.project.danielbachelor.R;
 import com.project.danielbachelor.funktionen.Generell;
 
 public class sucheActivity extends AppCompatActivity {
+    public static String Benutzername_Tag = "Benutzername_Tags";
+    private String mBenutzername;
+
     private suchePresenter mPresenter;
 
     @Override
@@ -18,8 +21,6 @@ public class sucheActivity extends AppCompatActivity {
         setContentView(R.layout.activity_anmeldung);
 
         //Toolbar-Setup
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Suche nach Standorten");                       //to-do String Value
         ab.setHomeAsUpIndicator(android.R.drawable.ic_menu_sort_by_size);
@@ -33,6 +34,6 @@ public class sucheActivity extends AppCompatActivity {
             Generell.addFragmentToActivity(getSupportFragmentManager(), AV, R.id.contentFrame);
         }
 
-        mPresenter = new suchePresenter(AV);
+        mPresenter = new suchePresenter(AV,mBenutzername);
     }
 }
