@@ -20,8 +20,6 @@ public class registrierungActivity extends AppCompatActivity {
         //Toolbar-Setup
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Registrierung");                       //to-do String Value
-        ab.setHomeAsUpIndicator(android.R.drawable.ic_menu_sort_by_size);
-        ab.setDisplayHomeAsUpEnabled(true);
 
         //Fragment-Setup
         registrierungView AV = (registrierungView) getSupportFragmentManager().findFragmentById(R.id.contentFrame);

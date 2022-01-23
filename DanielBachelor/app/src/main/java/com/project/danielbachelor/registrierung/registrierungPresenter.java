@@ -39,7 +39,7 @@ public class registrierungPresenter implements registrierungKontrakt.Presenter{
         Response.Listener<JSONObject> mListener = new Response.Listener<JSONObject>() {
             @Override
             public void onResponse(JSONObject response) {
-                String ErfolgString = "Erfolgreich registriert!";
+                String ErfolgString = Kontext.getString(R.string.Toast_Erfolg_Registrierung);
                 Generell.posteToast(Kontext, ErfolgString);
             }
         };
@@ -49,14 +49,13 @@ public class registrierungPresenter implements registrierungKontrakt.Presenter{
             public void onErrorResponse(VolleyError error) {
                 String Grund= "";
                 String ErrorDataString = new String(error.networkResponse.data);
-                int errorStatusCode = error.networkResponse.statusCode;
                 try {
                     JSONObject mJSONObject = new JSONObject(ErrorDataString);
                     Grund = mJSONObject.getString(Kontext.getString(R.string.API_message));
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                String ErrorString = "Fehler bei der Registrierung:\n"+ Grund;
+                String ErrorString = Kontext.getString(R.string.Toast_Fehler_Registrierung)+ Grund;
                 Generell.posteToast(Kontext, ErrorString);
             }
         };

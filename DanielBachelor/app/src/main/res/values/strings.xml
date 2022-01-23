@@ -11,6 +11,12 @@
     <string name="title_activity_suche">sucheActivity</string>
     <string name="title_activity_suchergebnis">suchergebnisActivity</string>
 
+    <string name="Toast_Erfolg_Anmeldung">Erfolgreich angemeldet!</string>
+    <string name="Toast_Erfolg_Registrierung">Erfolgreich registriert!</string>
+
+    <string name="Toast_Fehler_Anmeldung">Fehler bei der Anmeldung:\n</string>
+    <string name="Toast_Fehler_Registrierung">Fehler bei der Registrierung:\n</string>
+
     <string name="API_Adresse_Basis" translatable="false">https://daniel.platincore.de/api/</string>
 
     <string name="API_Adresse_Benutzer_Anmeldung" translatable="false">benutzer/anmeldung</string>
@@ -21,8 +27,6 @@
     <string name="API_Adresse_Hardwaresystem_Ubersicht" translatable="false">hardwaresystem/uebersicht</string>
 
     <string name="API_Adresse_Standort_Suche" translatable="false">standort/suche</string>
-
-
 
     <string name="API_name" translatable="false">name</string>
     <string name="API_hname" translatable="false">hname</string>

@@ -17,8 +17,6 @@ public class anmeldungActivity extends AppCompatActivity {
         setContentView(R.layout.activity_anmeldung);
 
         //Toolbar-Setup
-        //Toolbar toolbar = findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Anmeldung");                       //to-do String Value
 
