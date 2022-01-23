@@ -51,15 +51,28 @@ router.get('/verknuepfunguebersicht', async (req, res) =>{
                     message: 'Es sind keine Verknüpfungen vom angegebenen Benutzer vorhanden.'
                     });
             }else{
-            //Es sind Einträge vorhanden, sende diese in der Antwort
-            return res.status(200).json({
-                status: 'Erfolg',
-                message: 'Hardwaresystemverknüpfungen erfolgreich abgefragt.',
-                data: Resultat
-                });
+                //Es sind Einträge vorhanden, sende diese in der Antwort
+                const ResultatMitStandorte = await db.pool.query("SELECT Hardwaresystem.HName, max(Standort.SErfassungszeit), Standort.SLaengengrad, Standort.SBreitengrad FROM Standort CROSS JOIN "+
+                "Hardwaresystem ON Standort.HName = Hardwaresystem.HName WHERE Hardwaresystem.BName = ? GROUP BY Hardwaresystem.HName",[BName]);
+            
+                //Falls leer, dann Fehler aufgetreten
+                if(!ResultatMitStandorte[0]){
+                    return res.status(500).json({
+                        status: 500,
+                        message: 'Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut111111.'
+                    });
+                }else{//Ansonsten Daten vorhanden
+                    return res.status(200).json({
+                        status: 'Erfolg',
+                        message: 'Hardwaresystemverknüpfungen erfolgreich abgefragt.',
+                        data: ResultatMitStandorte
+                    });
+                }
+            
             }    
         }catch(err){
             //keine Anfrage möglich
+            console.log(err);
             return res.status(500).json({
                 status: 500,
                 message: 'Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.'

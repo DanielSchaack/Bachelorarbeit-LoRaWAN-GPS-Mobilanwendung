@@ -39,7 +39,5 @@ public class HTTP {
         };
 
         mSingleton.getInstance(AppKontext).addToRequestQueue(mJSONObjectRequest);
-
-
     }
 }

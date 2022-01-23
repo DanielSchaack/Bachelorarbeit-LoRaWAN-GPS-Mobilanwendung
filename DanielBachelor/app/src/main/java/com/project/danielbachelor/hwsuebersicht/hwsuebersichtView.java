@@ -9,10 +9,17 @@ import android.widget.Button;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.project.danielbachelor.HWSRecAdapter;
 import com.project.danielbachelor.R;
+import com.project.danielbachelor.datenbank.entitaet.standort;
+import com.project.danielbachelor.funktionen.Generell;
+
+import java.util.List;
 
 public class hwsuebersichtView extends Fragment implements hwsuebersichtKontrakt.View {
     private hwsuebersichtKontrakt.Presenter mPresenter;
@@ -48,7 +55,12 @@ public class hwsuebersichtView extends Fragment implements hwsuebersichtKontrakt
         SortierBGButton = root.findViewById(R.id.SortierBGButton);
         SortierLGButton = root.findViewById(R.id.SortierLGButton);
         SortierZeitButton = root.findViewById(R.id.SortierZeitButton);
+
         HWSUebersichtRecView = root.findViewById(R.id.HWSUebersichtRecView);
+        HWSUebersichtRecView.setHasFixedSize(true);
+        LinearLayoutManager LLM = new LinearLayoutManager(getContext());
+        HWSUebersichtRecView.setLayoutManager(LLM);
+        HWSUebersichtRecView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
         HWSUebersichtFAB = root.findViewById(R.id.HWSUebersichtFAB);
         HWSUebersichtFAB.setOnClickListener(new View.OnClickListener() {
@@ -63,5 +75,10 @@ public class hwsuebersichtView extends Fragment implements hwsuebersichtKontrakt
     @Override
     public void setPresenter(hwsuebersichtKontrakt.Presenter Presenter) {
         mPresenter = Presenter;
+    }
+
+    @Override
+    public void setzeRecViewUndSortierFunktion(List<standort> Liste) {
+        Generell.fuegeSortierFunktionZuButtonVonRecView(Liste,SortierBGButton, SortierLGButton, SortierZeitButton, HWSUebersichtRecView);
     }
 }

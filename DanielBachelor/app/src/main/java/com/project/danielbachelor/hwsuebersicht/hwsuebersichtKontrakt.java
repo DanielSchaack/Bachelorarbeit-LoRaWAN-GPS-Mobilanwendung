@@ -4,9 +4,13 @@ import android.content.Context;
 
 import com.project.danielbachelor.BasePresenter;
 import com.project.danielbachelor.BaseView;
+import com.project.danielbachelor.datenbank.entitaet.standort;
+
+import java.util.List;
 
 public interface hwsuebersichtKontrakt {
     interface View extends BaseView<Presenter> {
+        void setzeRecViewUndSortierFunktion(List<standort> Liste);
 
     }
 

@@ -16,6 +16,7 @@
 
     <string name="Toast_Fehler_Anmeldung">Fehler bei der Anmeldung:\n</string>
     <string name="Toast_Fehler_Registrierung">Fehler bei der Registrierung:\n</string>
+    <string name="Toast_Fehler_HWSUebersicht">Fehler bei der Ermittlung der verknüpften Hardwaresysteme:\n</string>
 
     <string name="API_Adresse_Basis" translatable="false">https://daniel.platincore.de/api/</string>
 
@@ -50,6 +51,7 @@
 
     <string name="API_status" translatable="false">status</string>
     <string name="API_message" translatable="false">message</string>
+    <string name="API_data" translatable="false">data</string>
 
     <string name="FCM_HWSName" translatable="false">HName</string>
     <string name="FCM_BrGrad" translatable="false">BrGrad</string>

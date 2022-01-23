@@ -10,16 +10,14 @@ public class standort {
     @PrimaryKey(autoGenerate = true)
     private final int SID;
 
-    private final String HPasswort;
     private final Timestamp SErfassungszeit;
     private final double SBreitengrad, SLaengengrad;
 
     //foreign key
     private final String HName;
 
-    public standort(int SID, String HPasswort, Timestamp SErfassungszeit, double SBreitengrad, double SLaengengrad, String HName) {
+    public standort(int SID, Timestamp SErfassungszeit, double SBreitengrad, double SLaengengrad, String HName) {
         this.SID = SID;
-        this.HPasswort = HPasswort;
         this.SErfassungszeit = SErfassungszeit;
         this.SBreitengrad = SBreitengrad;
         this.SLaengengrad = SLaengengrad;
@@ -28,10 +26,6 @@ public class standort {
 
     public int getSID() {
         return SID;
-    }
-
-    public String getHPasswort() {
-        return HPasswort;
     }
 
     public Timestamp getSErfassungszeit() {
