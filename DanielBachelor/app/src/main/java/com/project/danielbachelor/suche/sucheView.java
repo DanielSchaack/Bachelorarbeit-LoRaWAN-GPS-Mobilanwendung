@@ -16,6 +16,9 @@ import androidx.fragment.app.Fragment;
 import com.project.danielbachelor.R;
 
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.temporal.ChronoUnit;
+import java.time.temporal.TemporalUnit;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -89,17 +92,16 @@ public class sucheView extends Fragment implements sucheKontrakt.View {
     @SuppressLint("SetTextI18n")
     @Override
     public void setzeStandardWerte() {
-
+        DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd.MM.yyyy HH:mm:ss");
         LocalDateTime DateTimeJetzt = LocalDateTime.now();
-        LocalDateTime DateTimeAnfangStunde;
+        LocalDateTime DateTimeAnfangStunde = LocalDateTime.now().truncatedTo(ChronoUnit.HOURS);
+        double GradStandard = 0.0;
 
-        Double GradStandard = 0.0;
-
-        //SucheDatumEinsEditText.setText(DateTimeJetzt.toString());
-        //SucheDatumEinsEditText.setText(DateTimeJetzt);
-        SucheBGEinsEditText.setText(GradStandard.toString());
-        SucheBGZweiEditText.setText(GradStandard.toString());
-        SucheLGEinsEditText.setText(GradStandard.toString());
-        SucheLGZweiEditText.setText(GradStandard.toString());
+        SucheDatumEinsEditText.setText(dtf.format(DateTimeJetzt));
+        SucheDatumZweiEditText.setText(dtf.format(DateTimeAnfangStunde));
+        SucheBGEinsEditText.setText(Double.toString(GradStandard));
+        SucheBGZweiEditText.setText(Double.toString(GradStandard));
+        SucheLGEinsEditText.setText(Double.toString(GradStandard));
+        SucheLGZweiEditText.setText(Double.toString(GradStandard));
     }
 }

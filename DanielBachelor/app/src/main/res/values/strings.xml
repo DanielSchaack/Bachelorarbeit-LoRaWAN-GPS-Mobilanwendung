@@ -10,4 +10,50 @@
     <string name="title_activity_routenergebnis">routenergebnisActivity</string>
     <string name="title_activity_suche">sucheActivity</string>
     <string name="title_activity_suchergebnis">suchergebnisActivity</string>
+
+    <string name="API_Adresse_Basis" translatable="false">https://daniel.platincore.de/api/</string>
+
+    <string name="API_Adresse_Benutzer_Anmeldung" translatable="false">benutzer/anmeldung</string>
+    <string name="API_Adresse_Benutzer_Registrierung" translatable="false">benutzer/registrierung</string>
+
+    <string name="API_Adresse_Hardwaresystem_Verknuepfunguebersicht" translatable="false">hardwaresystem/verknuepfunguebersicht</string>
+    <string name="API_Adresse_Hardwaresystem_Verknuepfung" translatable="false">hardwaresystem/verknuepfung</string>
+    <string name="API_Adresse_Hardwaresystem_Ubersicht" translatable="false">hardwaresystem/uebersicht</string>
+
+    <string name="API_Adresse_Standort_Suche" translatable="false">standort/suche</string>
+
+
+
+    <string name="API_name" translatable="false">name</string>
+    <string name="API_hname" translatable="false">hname</string>
+    <string name="API_bname" translatable="false">bname</string>
+
+    <string name="API_passwort" translatable="false">passwort</string>
+    <string name="API_hpasswort" translatable="false">hpasswort</string>
+
+    <string name="API_zunten" translatable="false">zunten</string>
+    <string name="API_zoben" translatable="false">zoben</string>
+
+    <string name="API_bgvorhanden" translatable="false">bvorhanden</string>
+    <string name="API_bgunten" translatable="false">bgunten</string>
+    <string name="API_bgoben" translatable="false">bgoben</string>
+
+    <string name="API_lgvorhanden" translatable="false">lvorhanden</string>
+    <string name="API_lgunten" translatable="false">lgunten</string>
+    <string name="API_lgoben" translatable="false">lgoben</string>
+
+    <string name="API_token" translatable="false">token</string>
+
+    <string name="API_status" translatable="false">status</string>
+    <string name="API_message" translatable="false">message</string>
+
+    <string name="FCM_HWSName" translatable="false">HName</string>
+    <string name="FCM_BrGrad" translatable="false">BrGrad</string>
+    <string name="FCM_LaeGrad" translatable="false">LaeGrad</string>
+
+    <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
+    <string name="fcm_message">Standort-Update</string>
+    <string name="fcm_body_1">Das Hardwaresystem </string>
+    <string name="fcm_body_2">ist nun am folgenden Standort: \nBreitengrad: </string>
+    <string name="fcm_body_3">\nLängengrad: </string>
 </resources>

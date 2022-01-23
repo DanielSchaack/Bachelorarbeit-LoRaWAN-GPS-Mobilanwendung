@@ -112,7 +112,10 @@ router.post('/Neu', async (req, res) =>{
 
             //Falls der erste Eintrag im Resultat leer ist, dann ist kein Hardwaresystem unter dem angegebenen Namen vorhanden.
             if(!Resultat[0]){
-                return res.status(400).send('Es ist kein Hardwaresystem unter dem angegebenen Namen vorhanden.');
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Es ist kein Hardwaresystem unter dem angegebenen Namen vorhanden.'
+                    });
             }else{
                 //Es sind Einträge, und somit das Hardwaresystem, vorhanden
                 //Füge die Daten als Eintrag ein
@@ -132,20 +135,32 @@ router.post('/Neu', async (req, res) =>{
                     if(ResultatBToken[0]){
                            const BToken = ResultatBToken[0].BToken;
                         sendFcmMessage(getMessageFormat(BToken, HWSName, BGrad, LGrad));
-                        return res.status(200).send('Standort erfolgreich hinzugefügt.');
+                        return res.status(200).json({
+                            status: 200,
+                            message: 'Standort erfolgreich hinzugefügt.'
+                        });
                     }else{
                         //Benutzertoken nicht vorhanden
-                        return res.status(400).send('Der Benutzername ist bereits vergeben.');
+                        return res.status(400).json({
+                            status: 400,
+                            message: 'Der Benutzername ist bereits vergeben.'
+                            });
                     }
                 }
             }
         }catch(err){
             //keine Verbindung zur Datenbank möglich
-            return res.status(500).send('Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.'+HWSName+BGrad+LGrad);
+            return res.status(500).json({
+                status: 500,
+                message: 'Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.'
+                });
         }
     }else{
         //Validierung ist fehlgeschlagen, Fehler in der Eingabe
-        return res.status(400).send("Fehlerhafte Eingabe.");
+        return res.status(400).json({
+            status: 400,
+            message: 'Fehlerhafte Eingabe.'
+            });
     }
 });
 
@@ -220,7 +235,10 @@ router.get('/Suche', async (req, res) =>{
 
             //Falls der erste Eintrag im Resultat leer ist, dann sind keine Standorte mit den angegebenen Daten vorhanden
             if(!Resultat[0]){
-                return res.status(400).send('Die Kombination des eingegebenen Namen und Passworts ist nicht vorhanden.');
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Die Kombination des eingegebenen Namen und Passworts ist nicht vorhanden.'
+                    });
             }else{
             //Es sind Einträge vorhanden, sende diese in der Antwort
             return res.status(200).json({
@@ -231,11 +249,17 @@ router.get('/Suche', async (req, res) =>{
             }
         }catch(err){
             //keine Verbindung zur Datenbank möglich
-            return res.status(500).send('Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.');
+            return res.status(500).json({
+                status: 500,
+                message: 'Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.'
+                });
         }
     }else{
         //Validierung ist fehlgeschlagen, Fehler in der Eingabe
-        return res.status(400).send("Fehlerhafte Eingabe.");
+        return res.status(400).json({
+            status: 400,
+            message: 'Fehlerhafte Eingabe.'
+            });
     }
 });
 module.exports = router;

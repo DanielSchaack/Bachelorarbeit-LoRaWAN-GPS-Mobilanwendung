@@ -1,5 +1,7 @@
 package com.project.danielbachelor.registrierung;
 
+import android.content.Context;
+
 import com.project.danielbachelor.BasePresenter;
 import com.project.danielbachelor.BaseView;
 
@@ -9,6 +11,6 @@ public interface registrierungKontrakt {
     }
 
     interface Presenter extends BasePresenter {
-        void sendeRegistrierung(String Benutzername, String Passwort);
+        void sendeRegistrierung(Context Kontext, String Benutzername, String Passwort);
     }
 }

@@ -14,14 +14,17 @@ router.get('/uebersicht', async (req, res) =>{
         const Resultat = await db.pool.query("SELECT HName, HRegDatum FROM Hardwaresystem");
 
         return res.status(200).json({
-            status: 'Erfolg',
+            status: 200,
             message: 'Hardwaresysteme erfolgreich abgefragt',
             data: Resultat
         });
 
     }catch(err){
         //keine Anfrage möglich
-        return res.status(500).send('Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.');
+        return res.status(500).json({
+            status: 500,
+            message: 'Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.'
+            });
     }
 
 });
@@ -43,7 +46,10 @@ router.get('/verknuepfunguebersicht', async (req, res) =>{
     
             //Falls der erste Eintrag im Resultat leer ist, dann sind keine Verknüpfungen vom angegebenen Benutzer vorhanden
             if(!Resultat[0]){
-                return res.status(400).send('Es sind keine Verknüpfungen vom angegebenen Benutzer vorhanden.');
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Es sind keine Verknüpfungen vom angegebenen Benutzer vorhanden.'
+                    });
             }else{
             //Es sind Einträge vorhanden, sende diese in der Antwort
             return res.status(200).json({
@@ -54,11 +60,17 @@ router.get('/verknuepfunguebersicht', async (req, res) =>{
             }    
         }catch(err){
             //keine Anfrage möglich
-            return res.status(500).send('Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.');
+            return res.status(500).json({
+                status: 500,
+                message: 'Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.'
+                });
         }
     }else{
         //Validierung ist fehlgeschlagen, Fehler in der Eingabe
-        return res.status(400).send('Fehlerhafte Eingabe.');
+        return res.status(400).json({
+            status: 400,
+            message: 'Fehlerhafte Eingabe.'
+            });
     }
 });
 
@@ -86,10 +98,16 @@ router.post('/verknuepfung', async (req, res) =>{
             
             //Hardwaresystem nicht vorhanden
             if(!Resultat[0]){
-                return res.status(400).send('Es ist kein Hardwaresystem unter dem angegebenen Namen vorhanden.');
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Es ist kein Hardwaresystem unter dem angegebenen Namen vorhanden.'
+                    });
             }//Hardwaresystem vorhanden, prüfe, ob der Benutzer sich erneut mit den Hardwaresystem verknüpfen möchte
             else if(Resultat[0].BName == BName){
-                return res.status(400).send('Das Hardwaresystem ist bereits mit diesem Benutzer verknüpft.');
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Das Hardwaresystem ist bereits mit diesem Benutzer verknüpft.'
+                    });
             }//Neuer Benutzer möchte sich mit dem Hardwaresystem verknüpfen
             else{
                 const HashPasswort = Resultat[0].HPasswort;
@@ -100,21 +118,36 @@ router.post('/verknuepfung', async (req, res) =>{
                     const ResultatUpdate = await db.pool.query("UPDATE Hardwaresystem SET BName = ? WHERE HName = ?", [BName, HName]);
                     if(!ResultatUpdate.error)
                     {
-                        return res.status(200).send('Hardwaresystem und Benutzer erfolgreich verknüpft.');
+                        return res.status(200).json({
+                            status: 200,
+                            message: 'Hardwaresystem und Benutzer erfolgreich verknüpft.'
+                        });
                     }else{
-                        return res.status(500).send('Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.');
+                        return res.status(500).json({
+                            status: 500,
+                            message: 'Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.'
+                            });
                     }
                 }else{
-                    return res.status(400).send('Die Kombination des eingegebenen Hardwaresystemnamen und Passworts ist nicht vorhanden.');
+                    return res.status(400).json({
+                        status: 400,
+                        message: 'Die Kombination des eingegebenen Hardwaresystemnamen und Passworts ist nicht vorhanden.'
+                        });
                 }
             }
         }catch(err){
             //keine Anfrage möglich
-            return res.status(500).send('Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.');
+            return res.status(500).json({
+                status: 500,
+                message: 'Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.'
+                });
         }
     }else{
         //Validierung ist fehlgeschlagen, Fehler in der Eingabe
-        return res.status(400).send("Fehlerhafte Eingabe.");
+        return res.status(400).json({
+            status: 400,
+            message: 'Fehlerhafte Eingabe.'
+            });
     }
 });
 
@@ -142,21 +175,36 @@ router.post('/neu', async (req, res) =>{
 
                 //Prüfe den Rückgabewert, falls kein Fehler, dann melde Erfolg
                 if(!ResultatInsert.error){
-                    return res.status(200).send('Hardwaresystem erfolgreich hinzugefügt!');
+                    return res.status(200).json({
+                        status: 200,
+                        message: 'Hardwaresystem erfolgreich hinzugefügt!'
+                    });
                 }else{
-                    return res.status(500).send('Fehler beim Hinzufügen des Hardwaresystems.')
+                    return res.status(500).json({
+                        status: 500,
+                        message: 'Fehler beim Hinzufügen des Hardwaresystems.'
+                        });
                 }
             }else{
                 //Es sind Einträge vorhanden, somit sende Fehler als Antwort, da somit der angegebene Hardwaresystemname bereits vergeben ist
-                return res.status(400).send('Der angegebene Hardwaresystemname ist bereits vergeben');
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Der angegebene Hardwaresystemname ist bereits vergeben.'
+                    });
             }
         }catch(err){
-            return res.status(500).send('Fehler beim Hinzufügen des Hardwaresystems.')
+            return res.status(500).json({
+                status: 500,
+                message: 'Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.'
+                });
         }
         
     }else{
         //Validierung ist fehlgeschlagen, Fehler in der Eingabe
-        return res.status(400).send("Fehlerhafte Eingabe.");
+        return res.status(400).json({
+            status: 400,
+            message: 'Fehlerhafte Eingabe.'
+            });
     }
 });
 module.exports = router;

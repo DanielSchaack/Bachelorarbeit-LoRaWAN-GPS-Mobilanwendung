@@ -51,7 +51,7 @@ public class registrierungView extends Fragment implements registrierungKontrakt
             public void onClick(View view) {
                 String Benutzername = BenutzernameEingabe.getText().toString();
                 String Passwort = PasswortEingabe.getText().toString();
-                mPresenter.sendeRegistrierung(Benutzername, Passwort);
+                mPresenter.sendeRegistrierung(getContext(), Benutzername, Passwort);
             }
         });
 

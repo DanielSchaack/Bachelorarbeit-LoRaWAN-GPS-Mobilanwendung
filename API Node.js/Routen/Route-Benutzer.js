@@ -2,7 +2,7 @@ const router = require('express').Router();
 const db = require('../Datenbankverbindung');
 const bcrypt = require('bcryptjs');
 
-const {AnmeldeValidierung, RegistrierValidierung} = require('../Validierung/BenutzerValidierung');
+const {BenutzerValidierung} = require('../Validierung/BenutzerValidierung');
 
 //Prüfung von Anmeldedaten zur Anmeldung in der App
 router.post('/anmeldung', async (req, res) => 
@@ -10,9 +10,10 @@ router.post('/anmeldung', async (req, res) =>
     //Eingabe
     const BName = req.body.name;
     const BPasswort = req.body.passwort;
+    const BToken = req.body.token;
 
     //Validierung der Eingabe
-    const ValError = AnmeldeValidierung(BName, BPasswort)
+    const ValError = BenutzerValidierung(BName, BPasswort, BToken);
     if(!ValError.error)
     {
         //Validierung ist gelungen, kein Fehler in der Eingabe
@@ -24,7 +25,10 @@ router.post('/anmeldung', async (req, res) =>
 
             //Falls der erste Eintrag im Resultat leer ist, dann ist kein Benutzer mit den angegebenen Namen vorhanden
             if(!Resultat[0]){
-                return res.status(400).send('Die Kombination des eingegebenen Namen und Passworts ist nicht vorhanden.');
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Die Kombination des eingegebenen Namen und Passworts ist nicht vorhanden.'
+                    });
             }else{
                 //entnehme das gehashte Passwort und prüfe mittels bcrypt, ob das eingegebene Passwort und das gehashte Password übereinstimmen
                 const HashPasswort = Resultat[0].BPasswort;
@@ -32,18 +36,40 @@ router.post('/anmeldung', async (req, res) =>
 
                 //Prüfe den Vergleich, bei Übereinstimmung Erfolg der Anmeldung, anonsten Fehlschlag
                 if(validesPasswort){
-                    return res.status(200).send('Erfolgreich angemeldet!');
+                    if(BToken != Resultat[0].BToken){
+                        const ResultatUpdate = await db.pool.query("UPDATE Benutzer SET BToken = ? WHERE BName = ?", [BToken, BName]);
+                        if(!ResultatUpdate.error)
+                        {
+                            return res.status(500).json({
+                                status: 500,
+                                message: 'Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.'
+                            });
+                        }
+                    }
+                    return res.status(200).json({
+                        status: 200,
+                        message: 'Erfolgreich angemeldet!'
+                    });
                 }else{
-                    return res.status(400).send('Die Kombination des eingegebenen Namen und Passworts ist nicht vorhanden.');
+                    return res.status(400).json({
+                        status: 400,
+                        message: 'Die Kombination des eingegebenen Namen und Passworts ist nicht vorhanden.'
+                        });
                 }
             }
         }catch(err){
             //keine Verbindung zur Datenbank möglich
-            return res.status(500).send('Keine Verbindung zur Datenbank möglich. Versuche es später erneut.');
+            return res.status(500).json({
+                status: 500,
+                message: 'Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.'
+                });
         }
     }else{
         //Validierung ist fehlgeschlagen, Fehler in der Eingabe
-        return res.status(400).send("Fehlerhafte Eingabe.");
+        return res.status(400).json({
+            status: 400,
+            message: 'Fehlerhafte Eingabe.'
+            });
     }
 });
 
@@ -56,7 +82,7 @@ router.post('/registrierung', async (req, res) =>{
      const BToken = req.body.token;
 
      //Validierung der Eingabe
-    const ValError = RegistrierValidierung(BName, BPasswort, BToken)
+    const ValError = BenutzerValidierung(BName, BPasswort, BToken)
     if(!ValError.error)
     {
         //Validierung ist gelungen, kein Fehler in der Eingabe
@@ -69,7 +95,10 @@ router.post('/registrierung', async (req, res) =>{
             //Falls der erste Eintrag im Resultat vorhanden ist, dann ist der Benutzername bereits vergeben
             if(Resultat[0]){
                 //Benutzername bereits vorhanden, Fehler als Antwort
-                return res.status(400).send("Der Benutzername ist bereits vergeben.");
+                return res.status(400).json({
+                    status: 400,
+                    message: 'Der Benutzername ist bereits vergeben.'
+                    });
             }else{
                 //Benutzername ist frei, erstelle gehashtes Passwort und füge neuen Benutzer ein
                 //Erstelle Hash vom Passwort
@@ -81,17 +110,29 @@ router.post('/registrierung', async (req, res) =>{
 
                 //Prüfe den Rückgabewert, falls kein Fehler, dann melde Erfolg
                 if(!ResultatInsert.error){
-                    return res.status(200).send('Benutzer erfolgreich hinzugefügt!');
+                    return res.status(200).json({
+                        status: 200,
+                        message: 'Benutzer erfolgreich hinzugefügt!'
+                    });
                 }else{
-                    return res.status(500).send('Fehler beim Hinzufügen des Benutzers.')
+                    return res.status(500).json({
+                        status: 500,
+                        message: 'Fehler beim Hinzufügen des Benutzers.'
+                        });
                 }
             }   
         }catch(err){
-            return res.status(500).send('Keine Verbindung zur Datenbank möglich. Versuche es später erneut.');
+            return res.status(500).json({
+                status: 500,
+                message: 'Ein Fehler ist mit der Datenbank aufgetreten. Versuche es später erneut.'
+                });
         }
     }else{
         //Validierung ist fehlgeschlagen, Fehler in der Eingabe
-        return res.status(400).send("Fehlerhafte Eingabe.");
+        return res.status(400).json({
+            status: 400,
+            message: 'Fehlerhafte Eingabe.'
+            });
     }
 });
 
