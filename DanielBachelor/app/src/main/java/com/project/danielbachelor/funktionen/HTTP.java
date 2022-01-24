@@ -28,6 +28,7 @@ public class HTTP {
             public Map<String, String> getHeaders() throws AuthFailureError {
                 HashMap<String, String> headers = new HashMap<>();
                 headers.put("Content-Type", "application/json");
+                headers.put("Accept", "application/json");
 
                 return headers;
             }
@@ -36,6 +37,8 @@ public class HTTP {
             public String getBodyContentType() {
                 return "application/json; charset=utf-8";
             }
+
+
         };
 
         mSingleton.getInstance(AppKontext).addToRequestQueue(mJSONObjectRequest);

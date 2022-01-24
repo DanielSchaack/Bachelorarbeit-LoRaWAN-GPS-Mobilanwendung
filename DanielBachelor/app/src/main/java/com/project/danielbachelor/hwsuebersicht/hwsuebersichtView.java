@@ -79,6 +79,6 @@ public class hwsuebersichtView extends Fragment implements hwsuebersichtKontrakt
 
     @Override
     public void setzeRecViewUndSortierFunktion(List<standort> Liste) {
-        Generell.fuegeSortierFunktionZuButtonVonRecView(Liste,SortierBGButton, SortierLGButton, SortierZeitButton, HWSUebersichtRecView);
+        Generell.fuegeSortierFunktionZuButtonVonRecView(Liste, SortierBGButton, SortierLGButton, SortierZeitButton, HWSUebersichtRecView);
     }
 }

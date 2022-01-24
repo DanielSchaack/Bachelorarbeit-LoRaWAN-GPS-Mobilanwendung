@@ -58,5 +58,8 @@ public class Generell {
                 HWSUebersichtRecView.getAdapter().notifyDataSetChanged();
             }
         });
+
+        HWSUebersichtRecView.setAdapter(new HWSRecAdapter(StandortListe));
+        HWSUebersichtRecView.getAdapter().notifyDataSetChanged();
     }
 }

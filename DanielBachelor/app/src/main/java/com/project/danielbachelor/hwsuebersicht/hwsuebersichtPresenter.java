@@ -47,7 +47,7 @@ public class hwsuebersichtPresenter implements hwsuebersichtKontrakt.Presenter{
     }
 
     public void getVerknuepfungen(Context Kontext){
-        int HTTPMethode = Request.Method.GET;
+        int HTTPMethode = Request.Method.POST;
         JSONObject mJSONObject= new JSONObject();
 
         Response.Listener<JSONObject> mListener = new Response.Listener<JSONObject>() {
@@ -63,16 +63,17 @@ public class hwsuebersichtPresenter implements hwsuebersichtKontrakt.Presenter{
                         String HName = currentJSON.getString("HName");
                         double BGrad = currentJSON.getDouble("SBreitengrad");
                         double LGrad = currentJSON.getDouble("SLaengengrad");
-                        Timestamp DateTime = Timestamp.valueOf(currentJSON.getString("max(Standort.Erfassungszeit)"));
-                        StandortListe.add(new standort(0, DateTime, BGrad, LGrad, HName));
+
+                        String SErfassungszeit = currentJSON.getString("max(Standort.SErfassungszeit)");
+                        String SErfassungszeitOhneTundOhneZ = SErfassungszeit.replace('T', ' ').replace('Z', ' ');
+                        Timestamp DateTime = Timestamp.valueOf(SErfassungszeitOhneTundOhneZ);
+                        StandortListe.add(new standort(0, DateTime, BGrad, LGrad, HName));//max(Standort.SErfassungszeit) -> 2022-01-16T19:28:23.000Z
                     }
 
                     mView.setzeRecViewUndSortierFunktion(StandortListe);
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-
-                mView.setzeRecViewUndSortierFunktion(null);
             }
         };
 

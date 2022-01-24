@@ -11,12 +11,20 @@
     <string name="title_activity_suche">sucheActivity</string>
     <string name="title_activity_suchergebnis">suchergebnisActivity</string>
 
+    <string name="abbrechen">Abbrechen</string>
+    <string name="registrieren">Registrieren</string>
+
+    <string name="HWSPasswortEingeben">Hardwaresystempasswort eingeben:</string>
+
     <string name="Toast_Erfolg_Anmeldung">Erfolgreich angemeldet!</string>
     <string name="Toast_Erfolg_Registrierung">Erfolgreich registriert!</string>
+    <string name="Toast_Erfolg_Verknuepfung">Erfolgreich verknuepft!</string>
 
     <string name="Toast_Fehler_Anmeldung">Fehler bei der Anmeldung:\n</string>
     <string name="Toast_Fehler_Registrierung">Fehler bei der Registrierung:\n</string>
     <string name="Toast_Fehler_HWSUebersicht">Fehler bei der Ermittlung der verknüpften Hardwaresysteme:\n</string>
+    <string name="Toast_Fehler_AlleUebersicht">Fehler bei der Ermittlung der Hardwaresysteme:\n</string>
+    <string name="Toast_Fehler_Verknuepfung">Fehler bei der Verknüpfung vom Hardwaresystem:\n</string>
 
     <string name="API_Adresse_Basis" translatable="false">https://daniel.platincore.de/api/</string>
 
