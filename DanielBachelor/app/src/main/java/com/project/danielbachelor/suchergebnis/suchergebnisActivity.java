@@ -5,8 +5,8 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.material.tabs.TabLayout;
 import com.project.danielbachelor.R;
 import com.project.danielbachelor.datenbank.entitaet.standort;
 import com.project.danielbachelor.funktionen.Generell;
@@ -18,12 +18,16 @@ public class suchergebnisActivity extends AppCompatActivity {
     public static String StandortListeTag = "StandortListeTag";
     private List<standort> mStandortListe;
 
-    private suchergebnisPresenter mPresenter;
+    private suchergebnisListePresenter mPresenterListe;
+    private suchergebnisKartePresenter mPresenterKarte;
+
+    private TabLayout mTabLayout;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_anmeldung);
+        setContentView(R.layout.activity_suchergebnis);
 
         if(savedInstanceState != null){
             mStandortListe = (List<standort>) savedInstanceState.getSerializable(StandortListeTag);
@@ -34,18 +38,60 @@ public class suchergebnisActivity extends AppCompatActivity {
         //Toolbar-Setup
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Suchergebnis");                       //to-do String Value
-        ab.setHomeAsUpIndicator(android.R.drawable.ic_menu_sort_by_size);
-        ab.setDisplayHomeAsUpEnabled(true);
 
-        //Fragment-Setup
-        suchergebnisView AV = (suchergebnisView) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
-        //Falls AV nicht vorhanden ist, dann erstelle das View-Fragment und füge dies der Aktivität hinzu
-        if (AV == null) {
-            AV = suchergebnisView.newInstance();
-            Generell.addFragmentToActivity(getSupportFragmentManager(), AV, R.id.contentFrame);
-        }
+        mTabLayout = findViewById(R.id.TabLayout);
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                switch(tab.getPosition()){
+                    case 0: {
+                        suchergebnisListeView ALV = (suchergebnisListeView) getSupportFragmentManager().findFragmentById(R.id.contentFrameListe);
+                        if (ALV == null) {
+                            ALV = suchergebnisListeView.newInstance();
+                            Generell.addFragmentToActivity(getSupportFragmentManager(), ALV, R.id.contentFrameListe);
+                        }else{
+                            Generell.showFragment(getSupportFragmentManager(), ALV);
+                        }
 
-        mPresenter = new suchergebnisPresenter(AV);
+                        suchergebnisKarteView AKV = (suchergebnisKarteView) getSupportFragmentManager().findFragmentById(R.id.contentFrameKarte);
+                        if (AKV != null){
+                            Generell.hideFragment(getSupportFragmentManager(), AKV);
+                        }
+                            mPresenterListe = new suchergebnisListePresenter(ALV, mStandortListe);
+                        break;
+                    }
+                    case 1: {
+                        suchergebnisKarteView AKV = (suchergebnisKarteView) getSupportFragmentManager().findFragmentById(R.id.contentFrameKarte);
+                        if (AKV == null) {
+                            AKV = suchergebnisKarteView.newInstance();
+                            Generell.addFragmentToActivity(getSupportFragmentManager(), AKV, R.id.contentFrameKarte);
+                        }else{
+                            Generell.showFragment(getSupportFragmentManager(), AKV);
+                        }
+
+                        suchergebnisListeView ALV = (suchergebnisListeView) getSupportFragmentManager().findFragmentById(R.id.contentFrameListe);
+                        if (ALV != null){
+                            Generell.hideFragment(getSupportFragmentManager(), ALV);
+                        }
+                        mPresenterKarte = new suchergebnisKartePresenter(AKV, mStandortListe);
+                        break;
+                    }
+                    default: break;
+                }
+            }
+
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+                onTabSelected(tab);
+            }
+        });
+
+        mTabLayout.selectTab(mTabLayout.getTabAt(0));
     }
 
     @Override

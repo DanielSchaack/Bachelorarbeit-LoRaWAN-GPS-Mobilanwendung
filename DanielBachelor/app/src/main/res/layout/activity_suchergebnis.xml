@@ -10,10 +10,50 @@
     android:padding="@dimen/box_inset_layout_padding"
     tools:context=".suchergebnis.suchergebnisActivity">
 
-    <FrameLayout
-        android:id="@+id/contentFrame"
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/TabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/TabLayoutListeTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/TabListe" />
+
+        <com.google.android.material.tabs.TabItem
+            android:id="@+id/TabLayoutKarteTab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/TabKarte" />
+
+    </com.google.android.material.tabs.TabLayout>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    </FrameLayout>
+        <FrameLayout
+            android:id="@+id/contentFrameListe"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
+
+        <FrameLayout
+            android:id="@+id/contentFrameKarte"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+        </FrameLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
 </LinearLayout>

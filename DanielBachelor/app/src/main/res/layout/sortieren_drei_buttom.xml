@@ -5,32 +5,32 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/SortierBGButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:insetRight="5dp"
-            android:text="Button" />
+            android:text="@string/Button_BGrad" />
 
         <Button
             android:id="@+id/SortierLGButton"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:insetLeft="5dp"
-            android:text="Button" />
+            android:text="@string/Button_LGrad" />
     </LinearLayout>
 
     <Button
         android:id="@+id/SortierZeitButton"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="Button" />
+        android:text="@string/Button_Zeit" />
 </androidx.appcompat.widget.LinearLayoutCompat>

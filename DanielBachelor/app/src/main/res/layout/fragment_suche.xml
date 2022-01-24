@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp">
 
     <LinearLayout
         android:id="@+id/LLHardwaresystem"
@@ -19,7 +21,7 @@
             android:id="@+id/textView9"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="@string/TextView_HWSSpinner" />
 
         <Spinner
             android:id="@+id/SucheHWSSpinner"
@@ -42,7 +44,7 @@
             android:id="@+id/textView10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="@string/TextView_DatumEins" />
 
         <EditText
             android:id="@+id/SucheDatumEinsEditText"
@@ -66,7 +68,7 @@
             android:id="@+id/textView11"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="@string/TextView_DatumZwei" />
 
         <EditText
             android:id="@+id/SucheDatumZweiEditText"
@@ -97,7 +99,7 @@
                 android:id="@+id/textView15"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="@string/TextView_BG_Unten" />
 
             <EditText
                 android:id="@+id/SucheBGEinsEditText"
@@ -119,7 +121,7 @@
                 android:id="@+id/textView16"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="@string/TextView_BG_Oben" />
 
             <EditText
                 android:id="@+id/SucheBGZweiEditText"
@@ -152,7 +154,7 @@
                 android:id="@+id/textView17"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="@string/TextView_LG_Unten" />
 
             <EditText
                 android:id="@+id/SucheLGEinsEditText"
@@ -175,7 +177,7 @@
                 android:id="@+id/textView18"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="TextView" />
+                android:text="@string/TextView_LG_Oben" />
 
             <EditText
                 android:id="@+id/SucheLGZweiEditText"
@@ -192,7 +194,7 @@
         android:id="@+id/SucheStandorteButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="@string/Button_Suchen"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -2,6 +2,7 @@ package com.project.danielbachelor.profil;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -42,6 +43,12 @@ public class profilView extends Fragment implements profilKontrakt.View {
         View root = inflater.inflate(R.layout.fragment_profil, container, false);
 
         ProfilBenutzernameEditText = root.findViewById(R.id.ProfilBenutzernameEditText);
+        ProfilBenutzernameEditText.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
 
         AbmeldungButton = root.findViewById(R.id.AbmeldungButton);
         AbmeldungButton.setOnClickListener(new View.OnClickListener() {

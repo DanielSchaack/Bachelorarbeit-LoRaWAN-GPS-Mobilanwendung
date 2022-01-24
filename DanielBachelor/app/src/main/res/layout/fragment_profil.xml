@@ -3,7 +3,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginStart="8dp"
+    android:layout_marginEnd="8dp">
 
     <LinearLayout
         android:id="@+id/LL"
@@ -19,17 +21,16 @@
             android:id="@+id/textView8"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="@string/TextView_Benutzername" />
 
         <EditText
             android:id="@+id/ProfilBenutzernameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:editable="false"
             android:ems="10"
             android:inputType="textPersonName"
             android:minHeight="48dp"
-            android:text="Name" />
+            tools:ignore="SpeakableTextPresentCheck" />
 
     </LinearLayout>
 
@@ -37,7 +38,7 @@
         android:id="@+id/AbmeldungButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="@string/Button_Abmelden"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

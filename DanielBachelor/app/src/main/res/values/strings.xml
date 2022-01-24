@@ -11,6 +11,34 @@
     <string name="title_activity_suche">sucheActivity</string>
     <string name="title_activity_suchergebnis">suchergebnisActivity</string>
 
+    <string name="TabListe">Liste</string>
+    <string name="TabKarte">Karte</string>
+
+    <string name="Hint_HWSPasswort">Hardwaresystempasswort eingeben</string>
+    <string name="Hint_Benutzername">Benutzername eingeben</string>
+    <string name="Hint_Benutzerpasswort">Benutzerpasswort eingeben</string>
+
+    <string name="TextView_Benutzername">Benutzername:</string>
+    <string name="TextView_Passwort">Passwort:</string>
+    <string name="TextView_HWSSpinner">Wähle Hardwaresystem:</string>
+    <string name="TextView_DatumEins">Wähle das erste Datum:</string>
+    <string name="TextView_DatumZwei">Wähle das erste Datum:</string>
+    <string name="TextView_BG_Unten">Unteres Breitengrad:</string>
+    <string name="TextView_BG_Oben">Oberes Breitengrad:</string>
+    <string name="TextView_LG_Unten">Unteres Längengrad:</string>
+    <string name="TextView_LG_Oben">Oberes Längengrad:</string>
+
+    <string name="Button_Abmelden">Abmelden</string>
+    <string name="Button_Anmelden">Anmelden</string>
+    <string name="Button_Registrieren">Registrieren</string>
+    <string name="Button_Standortsuche">Standortsuche</string>
+    <string name="Button_HWSUebersicht">Hardwaresystemübersicht</string>
+    <string name="Button_Profil">Profil</string>
+    <string name="Button_BGrad">Breitengrad</string>
+    <string name="Button_LGrad">Längengrad</string>
+    <string name="Button_Zeit">Zeit</string>
+    <string name="Button_Suchen">Standort suchen</string>
+
     <string name="abbrechen">Abbrechen</string>
     <string name="registrieren">Registrieren</string>
 
@@ -68,7 +96,7 @@
 
     <string name="default_notification_channel_id" translatable="false">fcm_default_channel</string>
     <string name="fcm_message">Standort-Update</string>
-    <string name="fcm_body_1">Das Hardwaresystem </string>
-    <string name="fcm_body_2">ist nun am folgenden Standort: \nBreitengrad: </string>
-    <string name="fcm_body_3">\nLängengrad: </string>
+    <string name="fcm_body_1">Das Hardwaresystem &#160;</string>
+    <string name="fcm_body_2">&#160; ist nun am folgenden Standort: \nBreitengrad: &#160;</string>
+    <string name="fcm_body_3">\nLängengrad: &#160;</string>
 </resources>

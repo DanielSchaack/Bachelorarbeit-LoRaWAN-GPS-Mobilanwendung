@@ -27,6 +27,24 @@ public class Generell {
         }
     }
 
+    //Zeige ein Fragment an
+    public static void showFragment(FragmentManager FM, Fragment F){
+        if(FM!=null && F !=null){
+            FragmentTransaction T = FM.beginTransaction();
+            T.show(F);
+            T.commit();
+        }
+    }
+
+    //Verstecke ein Fragment an
+    public static void hideFragment(FragmentManager FM, Fragment F){
+        if(FM!=null && F !=null){
+            FragmentTransaction T = FM.beginTransaction();
+            T.hide(F);
+            T.commit();
+        }
+    }
+
     public static void posteToast(Context Kontext, String Nachricht){
         Toast.makeText(Kontext, Nachricht, Toast.LENGTH_SHORT).show();
     }

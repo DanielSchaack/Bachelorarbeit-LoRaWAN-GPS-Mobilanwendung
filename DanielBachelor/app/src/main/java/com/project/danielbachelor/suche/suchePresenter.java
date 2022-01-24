@@ -139,16 +139,16 @@ public class suchePresenter implements sucheKontrakt.Presenter{
         new DatePickerDialog(view.getContext(), new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker DPview, int year, int monthOfYear, int dayOfMonth) {
-                LocalDateTime temp = dateTime.withYear(year).withMonth(monthOfYear).withDayOfMonth(dayOfMonth);
+                LocalDateTime temp = dateTime.withYear(year).withMonth(monthOfYear+1).withDayOfMonth(dayOfMonth);
                 new TimePickerDialog(view.getContext(), new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker TPview, int hourOfDay, int minute) {
                         dateTime.withHour(hourOfDay).withMinute(minute);
                         mView.setzeEditText(view, temp.withHour(hourOfDay).withMinute(minute).truncatedTo(ChronoUnit.MINUTES));
                     }
-                }, dateTime.getHour(), dateTime.getMinute(), false).show();
+                }, dateTime.getHour(), dateTime.getMinute(), true).show();
             }
-        }, dateTime.getYear(), dateTime.getMonthValue(), dateTime.getDayOfMonth()).show();
+        }, dateTime.getYear(), dateTime.getMonthValue()-1, dateTime.getDayOfMonth()).show();
 
     }
 

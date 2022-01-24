@@ -34,11 +34,11 @@ public class MyFirebaseService extends FirebaseMessagingService {
                     getString(R.string.fcm_body_2) + BGrad +
                     getString(R.string.fcm_body_3) + LGrad;
 
-            sendNotification(BenachrichtigungString);
+            sendNotification(HWSName, BenachrichtigungString);
         }
     }
 
-    private void sendNotification(String messageBody){
+    private void sendNotification(String messageText, String messageBody){
         Intent mIntent = new Intent(this, anmeldungActivity.class);
         mIntent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent mPendingIntent = PendingIntent.getActivity(this, 0, mIntent, PendingIntent.FLAG_ONE_SHOT);
@@ -46,8 +46,11 @@ public class MyFirebaseService extends FirebaseMessagingService {
         String channelID = getString(R.string.default_notification_channel_id);
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(this, channelID)
+                .setSmallIcon(android.R.drawable.btn_plus)
                 .setContentTitle(getString(R.string.fcm_message))
-                .setContentText(messageBody)
+                .setContentText(messageText)
+                .setStyle(new NotificationCompat.BigTextStyle()
+                        .bigText(messageBody))
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
                 .setContentIntent(mPendingIntent);

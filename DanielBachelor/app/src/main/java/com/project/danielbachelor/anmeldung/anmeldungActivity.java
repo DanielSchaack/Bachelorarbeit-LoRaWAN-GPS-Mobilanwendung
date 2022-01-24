@@ -21,11 +21,11 @@ public class anmeldungActivity extends AppCompatActivity {
         ab.setTitle("Anmeldung");                       //to-do String Value
 
         //Fragment-Setup
-        anmeldungView AV = (anmeldungView) getSupportFragmentManager().findFragmentById(R.id.contentFrame);
+        anmeldungView AV = (anmeldungView) getSupportFragmentManager().findFragmentById(R.id.contentFrameKarte);
         //Falls AV nicht vorhanden ist, dann erstelle das View-Fragment und füge dies der Aktivität hinzu
         if(AV == null){
             AV = anmeldungView.newInstance();
-            Generell.addFragmentToActivity(getSupportFragmentManager(), AV, R.id.contentFrame);
+            Generell.addFragmentToActivity(getSupportFragmentManager(), AV, R.id.contentFrameKarte);
         }
 
         mPresenter = new anmeldungPresenter(AV);

@@ -19,16 +19,16 @@
             android:id="@+id/EnterNameTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="@string/TextView_Benutzername" />
 
         <EditText
             android:id="@+id/EnterNameEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/Hint_Benutzername"
             android:inputType="textPersonName"
-            android:minHeight="48dp"
-            android:text="Name" />
+            android:minHeight="48dp" />
     </LinearLayout>
 
     <LinearLayout
@@ -45,13 +45,14 @@
             android:id="@+id/EnterPasswortTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            android:text="@string/TextView_Passwort" />
 
         <EditText
             android:id="@+id/EnterPasswortEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/Hint_Benutzerpasswort"
             android:inputType="textPassword"
             android:minHeight="48dp"
             tools:ignore="SpeakableTextPresentCheck" />
@@ -62,7 +63,7 @@
         android:id="@+id/LoginButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Button"
+        android:text="@string/Button_Anmelden"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
