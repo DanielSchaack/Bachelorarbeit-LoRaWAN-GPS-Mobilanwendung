@@ -3,10 +3,11 @@ package com.project.danielbachelor.datenbank.entitaet;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.io.Serializable;
 import java.sql.Timestamp;
 
 @Entity(tableName = "standort")
-public class standort {
+public class standort implements Serializable {
     @PrimaryKey(autoGenerate = true)
     private final int SID;
 

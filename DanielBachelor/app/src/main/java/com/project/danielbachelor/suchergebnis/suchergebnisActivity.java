@@ -8,11 +8,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.project.danielbachelor.R;
+import com.project.danielbachelor.datenbank.entitaet.standort;
 import com.project.danielbachelor.funktionen.Generell;
 
+import java.io.Serializable;
+import java.util.List;
+
 public class suchergebnisActivity extends AppCompatActivity {
-    public static String Benutzername_Tag = "Benutzername_Tags";
-    private String mBenutzername;
+    public static String StandortListeTag = "StandortListeTag";
+    private List<standort> mStandortListe;
 
     private suchergebnisPresenter mPresenter;
 
@@ -22,9 +26,9 @@ public class suchergebnisActivity extends AppCompatActivity {
         setContentView(R.layout.activity_anmeldung);
 
         if(savedInstanceState != null){
-            mBenutzername = savedInstanceState.getString(Benutzername_Tag);
+            mStandortListe = (List<standort>) savedInstanceState.getSerializable(StandortListeTag);
         }else{
-            mBenutzername = getIntent().getStringExtra(Benutzername_Tag);
+            mStandortListe = (List<standort>) getIntent().getSerializableExtra(StandortListeTag);
         }
 
         //Toolbar-Setup
@@ -47,6 +51,6 @@ public class suchergebnisActivity extends AppCompatActivity {
     @Override
     protected void onSaveInstanceState(@NonNull Bundle outState) {
         super.onSaveInstanceState(outState);
-        outState.putString(Benutzername_Tag, mBenutzername);
+        outState.putSerializable(StandortListeTag, (Serializable) mStandortListe);
     }
 }

@@ -2,6 +2,7 @@ package com.project.danielbachelor.suche;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -20,6 +21,12 @@ public class sucheActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anmeldung);
 
+        if(savedInstanceState != null){
+            mBenutzername = savedInstanceState.getString(Benutzername_Tag);
+        }else{
+            mBenutzername = getIntent().getStringExtra(Benutzername_Tag);
+        }
+
         //Toolbar-Setup
         ActionBar ab = getSupportActionBar();
         ab.setTitle("Suche nach Standorten");                       //to-do String Value
@@ -35,5 +42,11 @@ public class sucheActivity extends AppCompatActivity {
         }
 
         mPresenter = new suchePresenter(AV,mBenutzername);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putString(Benutzername_Tag, mBenutzername);
     }
 }

@@ -25,6 +25,7 @@
     <string name="Toast_Fehler_HWSUebersicht">Fehler bei der Ermittlung der verknüpften Hardwaresysteme:\n</string>
     <string name="Toast_Fehler_AlleUebersicht">Fehler bei der Ermittlung der Hardwaresysteme:\n</string>
     <string name="Toast_Fehler_Verknuepfung">Fehler bei der Verknüpfung vom Hardwaresystem:\n</string>
+    <string name="Toast_Fehler_Suche">Fehler bei der Suche von Standorten:\n</string>
 
     <string name="API_Adresse_Basis" translatable="false">https://daniel.platincore.de/api/</string>
 
