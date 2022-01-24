@@ -54,6 +54,18 @@
     <string name="Toast_Fehler_AlleUebersicht">Fehler bei der Ermittlung der Hardwaresysteme:\n</string>
     <string name="Toast_Fehler_Verknuepfung">Fehler bei der Verknüpfung vom Hardwaresystem:\n</string>
     <string name="Toast_Fehler_Suche">Fehler bei der Suche von Standorten:\n</string>
+    <string name="Toast_Fehler_Routen">Fehler bei der Routenplanung</string>
+
+
+    <string name="API_Routing_Basis" translatable="false">http://router.project-osrm.org/</string>
+    <string name="API_Routing_Route" translatable="false">route/</string>
+    <string name="API_Routing_Version" translatable="false">v1/</string>
+    <string name="API_Routing_Profil" translatable="false">foot/</string>
+    <string name="API_Routing_Alternativen" translatable="false">\?alternatives=false&amp;</string>
+    <string name="API_Routing_Steps" translatable="false">steps=false&amp;</string>
+    <string name="API_Routing_Geometrien" translatable="false">geometries=polyline&amp;</string>
+    <string name="API_Routing_Overview" translatable="false">overview=false&amp;</string>
+    <string name="API_Routing_Annotation" translatable="false">annotations=false</string>
 
     <string name="API_Adresse_Basis" translatable="false">https://daniel.platincore.de/api/</string>
 

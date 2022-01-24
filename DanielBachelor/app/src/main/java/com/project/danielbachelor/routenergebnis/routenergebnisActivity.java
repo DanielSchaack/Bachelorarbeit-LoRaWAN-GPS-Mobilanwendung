@@ -2,19 +2,32 @@ package com.project.danielbachelor.routenergebnis;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.project.danielbachelor.R;
+import com.project.danielbachelor.datenbank.entitaet.standort;
 import com.project.danielbachelor.funktionen.Generell;
+
+import java.io.Serializable;
+import java.util.List;
 
 public class routenergebnisActivity extends AppCompatActivity {
     private routenergebnisPresenter mPresenter;
+    public static String StandortListeTag = "StandortListeTag";
+    private List<standort> mStandortListe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_anmeldung);
+
+        if(savedInstanceState != null){
+            mStandortListe = (List<standort>) savedInstanceState.getSerializable(StandortListeTag);
+        }else{
+            mStandortListe = (List<standort>) getIntent().getSerializableExtra(StandortListeTag);
+        }
 
         //Toolbar-Setup
         ActionBar ab = getSupportActionBar();
@@ -29,5 +42,11 @@ public class routenergebnisActivity extends AppCompatActivity {
         }
 
         mPresenter = new routenergebnisPresenter(AV);
+    }
+
+    @Override
+    protected void onSaveInstanceState(@NonNull Bundle outState) {
+        super.onSaveInstanceState(outState);
+        outState.putSerializable(StandortListeTag, (Serializable) mStandortListe);
     }
 }

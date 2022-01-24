@@ -21,7 +21,12 @@ import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
+import org.osmdroid.views.overlay.Polyline;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
+import org.osmdroid.bonuspack.routing.Road;
+import org.osmdroid.bonuspack.routing.RoadManager;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class suchergebnisKarteView extends Fragment implements suchergebnisKontrakt.KarteView {
@@ -100,6 +105,15 @@ public class suchergebnisKarteView extends Fragment implements suchergebnisKontr
             Koordinaten[i][1] = mStandortListe.get(i).getSLaengengrad();
         }
 
+        RoadManager roadManager = new OSRMRoadManager(getContext(), "Agent_String");
+
+        ArrayList<GeoPoint> track = new ArrayList<>();
+        // TODO: Fill the list with your track points
+
+        Road road = roadManager.getRoad(track);
+        Polyline roadOverlay = RoadManager.buildRoadOverlay(road, context);
+        map.getOverlays().add(roadOverlay);
+        map.invalidate();
         double[] Koordinatendurchschnitt = new double[2];
         Koordinatendurchschnitt[0] = 0.;
         Koordinatendurchschnitt[1] = 0.;
@@ -115,7 +129,7 @@ public class suchergebnisKarteView extends Fragment implements suchergebnisKontr
         }
 
         IMapController mapController = map.getController();
-        mapController.setZoom(9.5);
+        mapController.setZoom(15.0);
         //new GeoPoint(Breitengrad, Längengrad)
         GeoPoint startPoint = new GeoPoint(Koordinatendurchschnitt[0], Koordinatendurchschnitt[1]);
         mapController.setCenter(startPoint);
