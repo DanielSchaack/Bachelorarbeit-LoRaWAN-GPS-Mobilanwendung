@@ -2,6 +2,7 @@ package com.project.danielbachelor.suchergebnis;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.os.StrictMode;
 import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,20 +12,19 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.danielbachelor.R;
 import com.project.danielbachelor.datenbank.entitaet.standort;
 
 import org.osmdroid.api.IMapController;
+import org.osmdroid.bonuspack.routing.OSRMRoadManager;
+import org.osmdroid.bonuspack.routing.Road;
+import org.osmdroid.bonuspack.routing.RoadManager;
 import org.osmdroid.config.Configuration;
 import org.osmdroid.tileprovider.tilesource.TileSourceFactory;
 import org.osmdroid.util.GeoPoint;
 import org.osmdroid.views.MapView;
 import org.osmdroid.views.overlay.Marker;
 import org.osmdroid.views.overlay.Polyline;
-import org.osmdroid.bonuspack.routing.OSRMRoadManager;
-import org.osmdroid.bonuspack.routing.Road;
-import org.osmdroid.bonuspack.routing.RoadManager;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +33,6 @@ public class suchergebnisKarteView extends Fragment implements suchergebnisKontr
     private suchergebnisKontrakt.KartePresenter mPresenter;
 
     private MapView map;
-    private FloatingActionButton SuchergebnisKarteFAB;
 
     public suchergebnisKarteView() {
     }
@@ -62,6 +61,9 @@ public class suchergebnisKarteView extends Fragment implements suchergebnisKontr
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+        StrictMode.setThreadPolicy(policy);
+        //, it is not allowed to make a network call in the main thread: thanks to the "StrictMode.ThreadPolicy" default settings, a NetworkOnMainThreadException exception will be raised.
 
         Context ctx = getContext();
         Configuration.getInstance().load(ctx, PreferenceManager.getDefaultSharedPreferences(ctx));
@@ -81,13 +83,6 @@ public class suchergebnisKarteView extends Fragment implements suchergebnisKontr
         map.setTileSource(TileSourceFactory.MAPNIK);
         map.setMultiTouchControls(true);
 
-        SuchergebnisKarteFAB = root.findViewById(R.id.SuchergebnisKarteFAB);
-        SuchergebnisKarteFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.fuehreRoutensucheDurch(getContext());
-            }
-        });
         return root;
     }
 
@@ -105,15 +100,10 @@ public class suchergebnisKarteView extends Fragment implements suchergebnisKontr
             Koordinaten[i][1] = mStandortListe.get(i).getSLaengengrad();
         }
 
-        RoadManager roadManager = new OSRMRoadManager(getContext(), "Agent_String");
+        OSRMRoadManager roadManager = new OSRMRoadManager(getContext(), "Agent_String");
 
-        ArrayList<GeoPoint> track = new ArrayList<>();
-        // TODO: Fill the list with your track points
 
-        Road road = roadManager.getRoad(track);
-        Polyline roadOverlay = RoadManager.buildRoadOverlay(road, context);
-        map.getOverlays().add(roadOverlay);
-        map.invalidate();
+
         double[] Koordinatendurchschnitt = new double[2];
         Koordinatendurchschnitt[0] = 0.;
         Koordinatendurchschnitt[1] = 0.;
@@ -134,12 +124,22 @@ public class suchergebnisKarteView extends Fragment implements suchergebnisKontr
         GeoPoint startPoint = new GeoPoint(Koordinatendurchschnitt[0], Koordinatendurchschnitt[1]);
         mapController.setCenter(startPoint);
 
+        ArrayList<GeoPoint> track = new ArrayList<>();
+
         for (int i = 0; i < mStandortListe.size(); i++) {
             GeoPoint mPoint = new GeoPoint(Koordinaten[i][0], Koordinaten[i][1]);
             Marker mMarker = new Marker(map);
             mMarker.setPosition(mPoint);
             map.getOverlays().add(mMarker);
+
+            track.add(mPoint);
         }
+
+        roadManager.setMean(OSRMRoadManager.MEAN_BY_FOOT);
+        Road road = roadManager.getRoad(track);
+        Polyline roadOverlay = RoadManager.buildRoadOverlay(road);
+        map.getOverlays().add(roadOverlay);
+        map.invalidate();
     }
 
 

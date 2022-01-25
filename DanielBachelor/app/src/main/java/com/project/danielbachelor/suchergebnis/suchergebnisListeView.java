@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.project.danielbachelor.R;
 import com.project.danielbachelor.datenbank.entitaet.standort;
 import com.project.danielbachelor.funktionen.Generell;
@@ -27,7 +26,6 @@ public class suchergebnisListeView extends Fragment implements suchergebnisKontr
     private Button SortierLGButton;
     private Button SortierZeitButton;
     private RecyclerView SuchergebnisUebersichtRecView;
-    private FloatingActionButton SuchergebnisListeFAB;
 
     public suchergebnisListeView() {
     }
@@ -61,13 +59,6 @@ public class suchergebnisListeView extends Fragment implements suchergebnisKontr
         SuchergebnisUebersichtRecView.setLayoutManager(LLM);
         SuchergebnisUebersichtRecView.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
-        SuchergebnisListeFAB = root.findViewById(R.id.SuchergebnisFAB);
-        SuchergebnisListeFAB.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                mPresenter.fuehreRoutensucheDurch(getContext());
-            }
-        });
         return root;
     }
 

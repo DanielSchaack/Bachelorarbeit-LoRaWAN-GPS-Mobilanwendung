@@ -14,7 +14,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.project.danielbachelor.HWSRecAdapter;
 import com.project.danielbachelor.R;
 import com.project.danielbachelor.datenbank.entitaet.standort;
 import com.project.danielbachelor.funktionen.Generell;

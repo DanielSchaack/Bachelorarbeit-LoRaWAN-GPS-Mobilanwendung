@@ -8,7 +8,6 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.project.danielbachelor.datenbank.entitaet.hardwaresystem;
 import com.project.danielbachelor.datenbank.entitaet.standort;
 
 import java.util.List;

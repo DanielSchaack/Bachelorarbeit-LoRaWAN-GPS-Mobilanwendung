@@ -7,17 +7,14 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.project.danielbachelor.R;
-import com.project.danielbachelor.datenbank.entitaet.standort;
 import com.project.danielbachelor.funktionen.Generell;
 import com.project.danielbachelor.funktionen.HTTP;
-import com.project.danielbachelor.hauptmenu.hauptmenuActivity;
 import com.project.danielbachelor.hwsuebersicht.hwsuebersichtActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
 

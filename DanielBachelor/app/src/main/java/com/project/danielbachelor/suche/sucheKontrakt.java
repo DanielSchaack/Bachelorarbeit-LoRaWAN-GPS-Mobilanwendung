@@ -1,12 +1,10 @@
 package com.project.danielbachelor.suche;
 
 import android.content.Context;
-import android.view.View;
 
 import com.project.danielbachelor.BasePresenter;
 import com.project.danielbachelor.BaseView;
 import com.project.danielbachelor.datenbank.entitaet.standort;
-
 
 import java.time.LocalDateTime;
 import java.util.List;

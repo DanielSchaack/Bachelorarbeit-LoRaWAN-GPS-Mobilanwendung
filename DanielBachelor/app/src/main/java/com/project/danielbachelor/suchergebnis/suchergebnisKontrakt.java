@@ -1,8 +1,5 @@
 package com.project.danielbachelor.suchergebnis;
 
-import android.content.Context;
-import android.view.contentcapture.ContentCaptureCondition;
-
 import com.project.danielbachelor.BasePresenter;
 import com.project.danielbachelor.BaseView;
 import com.project.danielbachelor.datenbank.entitaet.standort;
@@ -15,7 +12,6 @@ public interface suchergebnisKontrakt {
     }
 
     interface ListePresenter extends BasePresenter {
-        void fuehreRoutensucheDurch(Context Kontext);
     }
 
     interface KarteView extends BaseView<KartePresenter> {
@@ -23,6 +19,5 @@ public interface suchergebnisKontrakt {
     }
 
     interface KartePresenter extends BasePresenter {
-        void fuehreRoutensucheDurch(Context Kontext);
     }
 }

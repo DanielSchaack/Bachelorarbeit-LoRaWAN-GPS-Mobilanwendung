@@ -4,8 +4,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -17,8 +15,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.project.danielbachelor.HWSHinzuRecAdapter;
 import com.project.danielbachelor.R;
-import com.project.danielbachelor.datenbank.entitaet.standort;
-import com.project.danielbachelor.funktionen.Generell;
 
 import java.util.List;
 

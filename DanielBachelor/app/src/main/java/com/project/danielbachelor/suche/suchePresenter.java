@@ -15,8 +15,6 @@ import com.project.danielbachelor.R;
 import com.project.danielbachelor.datenbank.entitaet.standort;
 import com.project.danielbachelor.funktionen.Generell;
 import com.project.danielbachelor.funktionen.HTTP;
-import com.project.danielbachelor.hwsuebersicht.hwsuebersichtActivity;
-import com.project.danielbachelor.hwsuebersicht.hwsuebersichtKontrakt;
 import com.project.danielbachelor.suchergebnis.suchergebnisActivity;
 
 import org.json.JSONArray;
@@ -25,9 +23,7 @@ import org.json.JSONObject;
 
 import java.io.Serializable;
 import java.sql.Timestamp;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
