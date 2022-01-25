@@ -50,6 +50,7 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+const uint32_t DutyCycle = 15000;
 ADC_HandleTypeDef hadc;
 
 RTC_HandleTypeDef hrtc;
@@ -62,9 +63,9 @@ DMA_HandleTypeDef hdma_usart1_tx;
 /* USER CODE BEGIN PV */
 extern Gpio_t	EN_Vext;
 
-uint8_t devEui[] = { 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x04, 0x46, 0xC3 };
+uint8_t devEui[] = { 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x04, 0x98, 0x41 };
 uint8_t appEui[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-uint8_t appKey[] = { 0xBD, 0x33, 0x45, 0xA8, 0x9B, 0x1D, 0x98, 0x90, 0xEA, 0xC2, 0xA2, 0xED, 0x2A, 0x6E, 0xD7, 0xE9 };
+uint8_t appKey[] = { 0x2B, 0x88, 0x95, 0xCF, 0x11, 0x06, 0xB6, 0x7E, 0x70, 0x96, 0x55, 0x98, 0x4B, 0xD5, 0xB5, 0x4F };
 
 /* ABP para*/
 uint8_t nwkSKey[] = { 0x15, 0xb1, 0xd0, 0xef, 0xa4, 0x63, 0xdf, 0xbe, 0x3d, 0x11, 0x18, 0x1e, 0x1e, 0xc7, 0xda,0x85 };
@@ -81,7 +82,7 @@ LoRaMacRegion_t loraWanRegion = LORAMAC_REGION_EU868;
 DeviceClass_t  loraWanClass = CLASS_A;
 
 /*the application data transmission duty cycle.  value in [ms].*/
-uint32_t appTxDutyCycle;
+uint32_t appTxDutyCycle = DutyCycle;
 
 /*OTAA or ABP*/
 bool overTheAirActivation = true;
@@ -116,7 +117,6 @@ uint8_t appPort = 2;
 */
 uint8_t confirmedNbTrials = 8;
 
-uint32_t DutyCycle = 15000;
 extern bool WurdeBewegt;
 /* USER CODE END PV */
 
@@ -138,31 +138,28 @@ extern void USB_VCP_init(void);
 
 static void prepareTxFrame( uint8_t port )
 {
-	bool DatenValide = true;
-	while(DatenValide)
+	/*
+	bool DatenValide = false;
+	while(!DatenValide)
 	{
 		GNSS_GetPVTData(&GNSS_Handle);
 		GNSS_ParseBuffer(&GNSS_Handle);
 
-		if((GNSS_Handle.fLat>-90) && (GNSS_Handle.fLat<90) && (GNSS_Handle.fLat!=0)
-				&& (GNSS_Handle.fLon>-180) && (GNSS_Handle.fLon<180) && (GNSS_Handle.fLon!=0))
-		{
-			DatenValide = false;
+		if(GNSS_Handle.fixType>1 && GNSS_Handle.fixType<4 && GNSS_Handle.flags & 0b1){
+
+			if((GNSS_Handle.fLat>-90) && (GNSS_Handle.fLat<90) && (GNSS_Handle.fLat!=0)
+							&& (GNSS_Handle.fLon>-180) && (GNSS_Handle.fLon<180) && (GNSS_Handle.fLon!=0))
+					{
+						DatenValide = true;
+					}
 		}
 	}
+	*/
 
-
-    appDataSize = 8;
+    appDataSize = 9;
     memcpy(&appData[0], &GNSS_Handle.fLat,4);
     memcpy(&appData[4], &GNSS_Handle.fLon,4);
-
-/*
-    memcpy(&appData[8], &GNSS_Handle.hour,1);
-    memcpy(&appData[9], &GNSS_Handle.min,1);
-    memcpy(&appData[10], &GNSS_Handle.sec,1);
-    memcpy(&appData[11], &GNSS_Handle.month,1);
-    memcpy(&appData[12], &GNSS_Handle.day,1);
-    */
+    memcpy(&appData[8], &GNSS_Handle.flags,1);
 }
 
 /* USER CODE END 0 */
@@ -203,7 +200,6 @@ int main(void)
   /* USER CODE BEGIN 2 */
   BoardInitMcu();
   BewegungssensorInit();
-  appTxDutyCycleInit();
 
   GNSS_Init(&GNSS_Handle, &huart1);
   GNSS_LoadConfig(&GNSS_Handle);
@@ -572,15 +568,9 @@ static void MX_GPIO_Init(void)
 }
 
 /* USER CODE BEGIN 4 */
-
-void appTxDutyCycleInit()
+void SetappTxDutyCycleInit(uint32_t newDutyCycle)
 {
-	appTxDutyCycle = DutyCycle;
-}
-
-void SetappTxDutyCycleInit(uint32_t DutyCycle)
-{
-	appTxDutyCycle = DutyCycle;
+	appTxDutyCycle = newDutyCycle;
 }
 /* USER CODE END 4 */
 

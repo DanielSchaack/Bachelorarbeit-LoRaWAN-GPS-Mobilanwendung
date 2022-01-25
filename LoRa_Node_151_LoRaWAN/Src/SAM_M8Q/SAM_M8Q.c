@@ -25,6 +25,7 @@ void GNSS_Init(GNSS_StateHandle *GNSS, UART_HandleTypeDef *huart) {
 	GNSS->min = 0;
 	GNSS->sec = 0;
 	GNSS->fixType = 0;
+	GNSS->flags = 0;
 	GNSS->lon = 0;
 	GNSS->lat = 0;
 	GNSS->height = 0;
@@ -99,6 +100,7 @@ void GNSS_ParsePVTData(GNSS_StateHandle *GNSS) {
 	GNSS->min = GNSS_Handle.uartWorkingBuffer[15];
 	GNSS->sec = GNSS_Handle.uartWorkingBuffer[16];
 	GNSS->fixType = GNSS_Handle.uartWorkingBuffer[26];
+	GNSS->flags = GNSS_Handle.uartWorkingBuffer[27];
 
 	for (int var = 0; var < 4; ++var) {
 		iLong.bytes[var] = GNSS_Handle.uartWorkingBuffer[var + 30];
@@ -195,17 +197,5 @@ void GNSS_LoadConfig(GNSS_StateHandle *GNSS) {
 	}
 }
 
-/*!
- *  Creates a checksum based on UBX standard.
- * @param class Class value from UBX doc.
- * @param messageID MessageID value from UBX doc.
- * @param dataLength Data length value from UBX doc.
- * @param payload Just payload.
- * @return  Returns checksum.
- */
-uint8_t GNSS_Checksum(uint8_t class, uint8_t messageID, uint8_t dataLength,uint8_t *payload) {
-//todo: Look at 32.4 UBX Checksum
-	return 0;
-}
 
 

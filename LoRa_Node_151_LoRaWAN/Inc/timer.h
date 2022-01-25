@@ -33,7 +33,6 @@ typedef struct TimerEvent_s
 #ifndef TimerTime_t
 typedef uint32_t TimerTime_t;
 #endif
-
 /*!
  * \brief Initializes the timer object
  *

@@ -12,13 +12,14 @@
 #include "spi-board.h"
 #include "rtc-board.h"
 #include "sx1276.h"
+#include "timer.h"
 
 #include "main.h"
 
 extern bool BewegungInterruptAusgeloest;
 extern bool WurdeBewegt;
 
-extern uint32_t DutyCycle;
+extern const uint32_t DutyCycle;
 
 
 void BewegungssensorInit(void);

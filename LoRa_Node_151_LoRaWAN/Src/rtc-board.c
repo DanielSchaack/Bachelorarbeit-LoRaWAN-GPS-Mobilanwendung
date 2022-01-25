@@ -725,6 +725,7 @@ static RtcCalendar_t RtcGetCalendar( void )
  */
 void RTC_Alarm_IRQHandler( void )
 {
+	HAL_ResumeTick();
     HAL_RTC_AlarmIRQHandler( &RtcHandle );
     HAL_RTC_DeactivateAlarm( &RtcHandle, RTC_ALARM_A );
     RtcRecoverMcuStatus( );

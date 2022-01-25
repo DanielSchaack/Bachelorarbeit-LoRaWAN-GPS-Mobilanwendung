@@ -49,6 +49,7 @@ typedef struct
 	uint8_t min;
 	uint8_t sec;
 	uint8_t fixType;
+	uint8_t flags;
 
 	signed long lon;
 	uint8_t lonBytes[4];

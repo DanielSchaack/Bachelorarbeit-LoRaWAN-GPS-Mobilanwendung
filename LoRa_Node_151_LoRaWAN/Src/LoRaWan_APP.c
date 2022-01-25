@@ -46,7 +46,7 @@ uint32_t txDutyCycleTime ;
 /*!
  * Timer to handle the application data transmission duty cycle
  */
-static TimerEvent_t TxNextPacketTimer;
+ TimerEvent_t TxNextPacketTimer;
 
 /*!
  * PassthroughMode mode enable/disable. don't modify it here. 

@@ -14,6 +14,7 @@ Maintainer: Miguel Luis and Gregory Cristian
 */
 #include "board.h"
 #include "gpio-board.h"
+#include "LoRaWAN_APP.h"
 #include "Bewegungssensor.h"
 
 extern bool BewegungInterruptAusgeloest;
@@ -317,7 +318,10 @@ void HAL_GPIO_EXTI_Callback( uint16_t gpioPin )
 {
 	if(gpioPin == GPIO_PIN_15) // If The INT Source Is EXTI Line15-10 (B15 Pin)
     {
+		TimerStop(&TxNextPacketTimer);
     	BewegungInterruptAusgeloest = true;
+    	__HAL_GPIO_EXTI_CLEAR_IT(gpioPin);
+    	TimerStart(&TxNextPacketTimer);
     }
 
     uint8_t callbackIndex = 0;

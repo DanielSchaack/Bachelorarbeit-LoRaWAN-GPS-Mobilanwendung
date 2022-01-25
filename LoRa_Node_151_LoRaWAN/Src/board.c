@@ -151,7 +151,7 @@ void BoardInitMcu( void )
     //HAL_Init( );
     
     SystemClockConfig( );
-/*
+
 #if defined( USE_USB_CDC )
     UartInit( &UartUsb, UART_USB_CDC, NC, NC );
     UartConfig( &UartUsb, RX_TX, 115200, UART_8_BIT, UART_1_STOP_BIT, NO_PARITY, NO_FLOW_CTRL );
@@ -165,10 +165,10 @@ void BoardInitMcu( void )
     UartConfig( &Uart1, RX_TX, 115200, UART_8_BIT, UART_1_STOP_BIT, NO_PARITY, NO_FLOW_CTRL );
 #elif defined( USE_DEBUGGER ) && defined( USB_VCP )
 	USB_VCP_init();
-//	HAL_Delay( 3000 ); //wait for usb init
+	HAL_Delay( 3000 ); //wait for usb init
 	DebugPrintf("USB CDC init done!\r\n");
 #endif
-*/
+
     RtcInit( );
     
     BoardUnusedIoInit( );

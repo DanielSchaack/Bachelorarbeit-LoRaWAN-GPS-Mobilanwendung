@@ -43,7 +43,7 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
 extern uint32_t appTxDutyCycle;
-extern uint32_t DutyCycle;
+extern const uint32_t DutyCycle;
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -55,7 +55,6 @@ extern uint32_t DutyCycle;
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
-void appTxDutyCycleInit(void);
 void SetappTxDutyCycleInit(uint32_t);
 /* USER CODE END EFP */
 
