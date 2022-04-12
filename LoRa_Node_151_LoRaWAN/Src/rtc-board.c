@@ -331,7 +331,6 @@ void RtcEnterLowPowerStopMode( void )
 
         // Disable the Power Voltage Detector
         HAL_PWR_DisablePVD( );
-//#warning "Commented for debug!"
 
         SET_BIT( PWR->CR, PWR_CR_CWUF );
 
@@ -341,11 +340,13 @@ void RtcEnterLowPowerStopMode( void )
         // Enable the fast wake up from Ultra low power mode
         HAL_PWREx_EnableFastWakeUp( );
 
-        // Enter Stop Mode
+        //Deaktiviere das Inkrementieren des SysTick Timers, Verhinderung eines Interrupts zum Aufwecken des Boards
         HAL_SuspendTick();
 
+        // Enter Stop Mode
         HAL_PWR_EnterSTOPMode( PWR_LOWPOWERREGULATOR_ON, PWR_STOPENTRY_WFI );
 
+        //Aktiviere das Inkrementieren des SysTick Timers
         HAL_ResumeTick();
 
     }
@@ -725,11 +726,12 @@ static RtcCalendar_t RtcGetCalendar( void )
  */
 void RTC_Alarm_IRQHandler( void )
 {
-	HAL_ResumeTick();
+HAL_ResumeTick();
     HAL_RTC_AlarmIRQHandler( &RtcHandle );
     HAL_RTC_DeactivateAlarm( &RtcHandle, RTC_ALARM_A );
     RtcRecoverMcuStatus( );
     RtcComputeWakeUpTime( );
     BlockLowPowerDuringTask( false );
+
     TimerIrqHandler( );
 }

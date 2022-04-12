@@ -21,16 +21,13 @@ public class MyFirebaseService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(@NonNull RemoteMessage remoteMessage) {
         super.onMessageReceived(remoteMessage);
-
         if(remoteMessage.getData().size() >0){
             String HWSName = remoteMessage.getData().get(getString(R.string.FCM_HWSName));
             String BGrad = remoteMessage.getData().get(getString(R.string.FCM_BrGrad));
             String LGrad = remoteMessage.getData().get(getString(R.string.FCM_LaeGrad));
-
             String BenachrichtigungString = getString(R.string.fcm_body_1) + HWSName +
                     getString(R.string.fcm_body_2) + BGrad +
                     getString(R.string.fcm_body_3) + LGrad;
-
             sendNotification(HWSName, BenachrichtigungString);
         }
     }

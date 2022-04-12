@@ -50,7 +50,6 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-const uint32_t DutyCycle = 15000;
 ADC_HandleTypeDef hadc;
 
 RTC_HandleTypeDef hrtc;
@@ -59,18 +58,27 @@ SPI_HandleTypeDef hspi1;
 
 UART_HandleTypeDef huart1;
 DMA_HandleTypeDef hdma_usart1_tx;
+DMA_HandleTypeDef hdma_usart1_rx;
 
 /* USER CODE BEGIN PV */
+//Dauer des Tiefschlafs in Millisekunden
+const uint32_t DutyCycle = 60000;
+//globale Variable für Erkennung, ob GNSS-Daten vom Sensor erhalten
+bool DatenErhalten = false;
+
 extern Gpio_t	EN_Vext;
 
-uint8_t devEui[] = { 0x70, 0xB3, 0xD5, 0x7E, 0xD0, 0x04, 0x98, 0x41 };
+//OTA-Activation EUIs und AppKey, vorgegeben vom LoRaWAN-Netzwerk
+//Aus Sicherheitsgründen nicht angegeben in GitHub
+uint8_t devEui[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 uint8_t appEui[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
-uint8_t appKey[] = { 0x2B, 0x88, 0x95, 0xCF, 0x11, 0x06, 0xB6, 0x7E, 0x70, 0x96, 0x55, 0x98, 0x4B, 0xD5, 0xB5, 0x4F };
+uint8_t appKey[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
 
-/* ABP para*/
-uint8_t nwkSKey[] = { 0x15, 0xb1, 0xd0, 0xef, 0xa4, 0x63, 0xdf, 0xbe, 0x3d, 0x11, 0x18, 0x1e, 0x1e, 0xc7, 0xda,0x85 };
-uint8_t appSKey[] = { 0xd7, 0x2c, 0x78, 0x75, 0x8c, 0xdc, 0xca, 0xbf, 0x55, 0xee, 0x4a, 0x77, 0x8d, 0x16, 0xef,0x67 };
-uint32_t devAddr =  ( uint32_t )0x007e6ae1;
+
+/* ABP para*/ //unused
+uint8_t nwkSKey[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+uint8_t appSKey[] = { 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00 };
+uint32_t devAddr =  ( uint32_t )0x00000000;
 
 /*LoraWan channelsmask, default channels 0-7*/
 uint16_t userChannelsMask[6]={ 0x00FF,0x0000,0x0000,0x0000,0x0000,0x0000 };
@@ -91,7 +99,7 @@ bool overTheAirActivation = true;
 bool loraWanAdr = true;
 
 /* Indicates if the node is sending confirmed or unconfirmed messages */
-bool isTxConfirmed = false;
+bool isTxConfirmed = true;
 
 /* Application port */
 uint8_t appPort = 2;
@@ -115,9 +123,10 @@ uint8_t appPort = 2;
 * Note, that if NbTrials is set to 1 or 2, the MAC will not decrease
 * the datarate, in case the LoRaMAC layer did not receive an acknowledgment
 */
-uint8_t confirmedNbTrials = 8;
+uint8_t confirmedNbTrials = 1;
 
 extern bool WurdeBewegt;
+extern bool WurdeBestaetigt;
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -135,33 +144,69 @@ extern void USB_VCP_init(void);
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+/*Erfassung des Standortes als Breiten- und Längengrad durch Kommunikation mit MatekSys SAM-M8Q GNSS-Modul
 
-static void prepareTxFrame( uint8_t port )
-{
-	/*
-	bool DatenValide = false;
-	while(!DatenValide)
-	{
-		GNSS_GetPVTData(&GNSS_Handle);
-		GNSS_ParseBuffer(&GNSS_Handle);
+	-Aktivieren des Moduls
+	-Erfassung vom Tickstand zum Start des Aufruf
+	-Erfragung und Parsing eines Standortes beim GNSS-Modul mit SimpleMethod's GNSS-Bibliothek in einer While-Schleife
+	-Falls der Standort nach den in der Antwort angegebenen Werten genau genug ist
+		dann valide Standortdaten erhalten
+		-> DatenErhalten auf wahr gesetzt
+		-> Beenden der Schleife durch erneute Überprüfung der jetzt falschen Bedingung
 
-		if(GNSS_Handle.fixType>1 && GNSS_Handle.fixType<4 && GNSS_Handle.flags & 0b1){
+	-Ansonsten aktuellen Tickstand erfassen
+	-Differenz aus aktuellen Tickstand und Startstand berechnen
+	-Falls Differenz größer als 400000 Millisekunden,
+		dann brich Erfassung ab
+		-> DatenErhalten auf Falsch gesetzt, Schleife mit break abgebrochen
 
-			if((GNSS_Handle.fLat>-90) && (GNSS_Handle.fLat<90) && (GNSS_Handle.fLat!=0)
-							&& (GNSS_Handle.fLon>-180) && (GNSS_Handle.fLon<180) && (GNSS_Handle.fLon!=0))
-					{
-						DatenValide = true;
-					}
+	-Deaktivieren des Moduls
+	-Falls Standortdaten erhalten,
+		dann setze Payload-Größe der LoRa-Nachricht auf 8 Byte
+		und kopiere den float-Wert des Breitengrads und des Längengrads in die Payload
+
+	Keine Parameter
+	Kein Rückgabewert
+*/
+static void prepareTxFrame(){
+	//GNSS-Modul Power-On
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_RESET);
+	HAL_Delay(500);											//Warte für Initialisierung des Moduls
+
+	uint32_t StartTimer = HAL_GetTick();					//Erfasse Startzeit
+	uint32_t LoopTimer = 0;
+	uint32_t TickDifferenz = 0;
+	DatenErhalten = false;
+
+
+	while(!DatenErhalten){
+		GNSS_GetPVTData(&GNSS_Handle);						//Erfasse Standort
+		GNSS_ParseBuffer(&GNSS_Handle);						//Parse erhaltene Antwort
+
+		if(GNSS_Handle.hAcc > 5000 && GNSS_Handle.vAcc > 5000 &&
+				GNSS_Handle.hAcc < 1000000 && GNSS_Handle.vAcc < 1000000){
+			DatenErhalten = true;
+			continue;
 		}
+
+		LoopTimer = HAL_GetTick();					//Erfasse Durchlaufszeit und die Differenz
+		TickDifferenz = LoopTimer - StartTimer;
+
+		//Falls Differenz größer als 400 Sekunden, dann brich Erfassung ab
+		if(TickDifferenz>400000){
+			break;
+		}
+		HAL_Delay(1000);
 	}
-	*/
+	//GNSS-Modul Power-Off
+	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET);
 
-    appDataSize = 9;
-    memcpy(&appData[0], &GNSS_Handle.fLat,4);
-    memcpy(&appData[4], &GNSS_Handle.fLon,4);
-    memcpy(&appData[8], &GNSS_Handle.flags,1);
+	if(DatenErhalten){
+	    appDataSize = 8;
+	    memcpy(&appData[0], &GNSS_Handle.fLat,4);
+	    memcpy(&appData[4], &GNSS_Handle.fLon,4);
+	}
 }
-
 /* USER CODE END 0 */
 
 /**
@@ -198,13 +243,26 @@ int main(void)
   MX_USART1_UART_Init();
   MX_ADC_Init();
   /* USER CODE BEGIN 2 */
+  //Initialisierung des STM32 durch Heltec-Bibliothek
+  //Clock, RTC, unbenutze GPIOs, SPI, LoRa-Chip SX1276
   BoardInitMcu();
+
+  //Initialisierung der Bool-Variablen für den Bewegungssensor
+  //BewegungInterruptAusgeloest = false;
+  //WurdeBewegt = true;
   BewegungssensorInit();
 
-  GNSS_Init(&GNSS_Handle, &huart1);
-  GNSS_LoadConfig(&GNSS_Handle);
+  //globale Variable für Feststellung, ob Bestätigung vom LoRaWAN-Netzwerk erhalten
+  //auf Wahr, damit im Falle von unbestätigten Nachrichten keine Veränderungen vorgenommen werden müssen.
+  WurdeBestaetigt = true;
 
+  //Initialisierung des Struct für GNSS-Standorterfassung
+  //alle Werte werden auf 0 gesetzt
+  GNSS_Init(&GNSS_Handle, &huart1);
+
+  //Initialisierungszustand für kommende switch-Maschine
   deviceState = DEVICE_STATE_INIT;
+  HAL_Delay(1000);
   /* USER CODE END 2 */
 
   /* Infinite loop */
@@ -215,25 +273,39 @@ int main(void)
 		{
 			case DEVICE_STATE_INIT:
 			{
-				//printDevParam();
+				//Einstellung des LoRa-Chips mit den oben definierten Variablen (Klasse, ISM-Band...)
 				LoraWanInit(loraWanClass,loraWanRegion);
+
+				//Übergang in Join-Zustand
 				deviceState = DEVICE_STATE_JOIN;
+
 				break;
 			}
 			case DEVICE_STATE_JOIN:
 			{
+				//Versuch, einem LoRaWAN-Netzwerk mit den festgelegten Aktivierungsmodus und den dazugehörigen EUIs/Schlüsseln beizutreten
+				//Bei Erfolg, gehe in Send-Zustand
+				//Ansonsten versuche erneut mit ggf angepasster Datenrate
+
 				LoraWanJoin();
 				break;
 			}
 			case DEVICE_STATE_SEND:
 			{
+				//Falls Bewegung erkannt,
+				//dann Erfassung des Standortes
+					//Falls Standort erfasst, dann Absenden der LoRa-Nachricht
+					//und Aktivierung des Bewegungssensor (Zustandpins des Sensors auf High setzen)
 				if(WurdeBewegt)
 				{
-					prepareTxFrame( appPort );
-					LoraWanSend();
-					SensorAktivieren();
+					prepareTxFrame();
+					if(DatenErhalten){
+						LoraWanSend();
+						HoleDenBewegungssensorAusDemSchlaf();
+					}
 				}
 
+				//Übergang in den Cycle-Zustand
 				deviceState = DEVICE_STATE_CYCLE;
 				break;
 			}
@@ -241,13 +313,38 @@ int main(void)
 			{
 				// Schedule next packet transmission
 				txDutyCycleTime = appTxDutyCycle + randr( 0, APP_TX_DUTYCYCLE_RND );
-				LoraWanCycle(txDutyCycleTime);
+
+				//Aktivierung eines Timers für das Aufwachen aus dem Tiefschlaf
+				//Nach Ablauf des Timers Prüfung ob im Netzwerk beigetreten
+					//Falls dem der Fall ist, dann Übergang in Send-Zustand
+					//ansonsten erneuter Join-Beitrittsversuch und
+					//je nach Resultat (bei Erfolg) Übergang in Sleep- oder (bei Fehlschlag) in Cycle-Zustand
+
+				//Falls Standort erfasst und Bestätigung erhalten, dann normale Schlafdauer und zurücksetzen der Prüfvariablen auf Falsch
+				//Ansonsten halbe Schlafszeit für erneuten Versuch
+
+				if(DatenErhalten && WurdeBestaetigt){
+					LoraWanCycle(txDutyCycleTime);
+					WurdeBewegt = false;					//Erfasste Bewegung erfolgreich abgearbeitet und Standort übermittelt, neue darf erfasst werden.
+				}else{
+					LoraWanCycle(txDutyCycleTime/2);
+				}
+				WurdeBestaetigt = false;
+				GNSSDataReset(&GNSS_Handle);
+				//Übergang in den Sleep-Zustand
 				deviceState = DEVICE_STATE_SLEEP;
 				break;
 			}
 			case DEVICE_STATE_SLEEP:
 			{
+				//Aktivierung des Tiefschlafes (inklusive deaktivieren des SysTick Timers für Verhinderung eines Interrupts)
+				//Nach dem Aufwachen befindet sich die Ausführung nach der Funktion
 				TimerLowPowerHandler( );
+
+				//Prüfe, ob der Interrupt des Bewegungssensors aktiviert wurde
+					//Ist dem so, dann setze WurdeBewegt auf wahr, setze den Sensor in den Schlafmodus
+					//und gehe erneut in den Tiefschlaf zum Aufwachen durch den Timer
+				PruefeInterruptStatus();
 				break;
 			}
 			default:
@@ -256,7 +353,7 @@ int main(void)
 				break;
 			}
 		}
-
+	//*/
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -528,6 +625,9 @@ static void MX_DMA_Init(void)
   /* DMA1_Channel4_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(DMA1_Channel4_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(DMA1_Channel4_IRQn);
+  /* DMA1_Channel5_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA1_Channel5_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA1_Channel5_IRQn);
 
 }
 
@@ -547,10 +647,11 @@ static void MX_GPIO_Init(void)
   __HAL_RCC_GPIOB_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14|GPIO_PIN_3, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14|GPIO_PIN_8, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOB, GPIO_PIN_3, GPIO_PIN_SET);
 
-  /*Configure GPIO pins : PB14 PB3 */
-  GPIO_InitStruct.Pin = GPIO_PIN_14|GPIO_PIN_3;
+  /*Configure GPIO pins : PB14 PB3 PB8 */
+  GPIO_InitStruct.Pin = GPIO_PIN_14|GPIO_PIN_3|GPIO_PIN_8;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -565,6 +666,7 @@ static void MX_GPIO_Init(void)
   /* EXTI interrupt init*/
   HAL_NVIC_SetPriority(EXTI15_10_IRQn, 0, 0);
   HAL_NVIC_EnableIRQ(EXTI15_10_IRQn);
+
 }
 
 /* USER CODE BEGIN 4 */

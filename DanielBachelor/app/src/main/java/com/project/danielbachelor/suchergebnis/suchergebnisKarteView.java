@@ -100,10 +100,6 @@ public class suchergebnisKarteView extends Fragment implements suchergebnisKontr
             Koordinaten[i][1] = mStandortListe.get(i).getSLaengengrad();
         }
 
-        OSRMRoadManager roadManager = new OSRMRoadManager(getContext(), "Agent_String");
-
-
-
         double[] Koordinatendurchschnitt = new double[2];
         Koordinatendurchschnitt[0] = 0.;
         Koordinatendurchschnitt[1] = 0.;
@@ -135,6 +131,7 @@ public class suchergebnisKarteView extends Fragment implements suchergebnisKontr
             track.add(mPoint);
         }
 
+        OSRMRoadManager roadManager = new OSRMRoadManager(getContext(), "Agent_String");
         roadManager.setMean(OSRMRoadManager.MEAN_BY_FOOT);
         Road road = roadManager.getRoad(track);
         Polyline roadOverlay = RoadManager.buildRoadOverlay(road);

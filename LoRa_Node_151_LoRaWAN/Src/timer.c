@@ -400,7 +400,6 @@ void TimerLowPowerHandler( void )
             {
 #if !defined( USE_DEBUGGER )
                 RtcEnterLowPowerStopMode( );
-                PruefeInterruptStatus();
 #endif
             }
         }

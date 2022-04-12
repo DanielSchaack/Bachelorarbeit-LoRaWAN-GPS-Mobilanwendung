@@ -190,7 +190,6 @@ void BoardInitMcu( void )
     {
       CalibrateSystemWakeupTime( );
     }
-
   }
 }
 
@@ -338,7 +337,7 @@ static void BoardUnusedIoInit( void )
 	GpioInit( &ioPin, UNUSEDPINPB5, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 	GpioInit( &ioPin, UNUSEDPINPB6, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 	GpioInit( &ioPin, UNUSEDPINPB7, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
-	GpioInit( &ioPin, UNUSEDPINPB8, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
+	//GpioInit( &ioPin, UNUSEDPINPB8, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 	GpioInit( &ioPin, UNUSEDPINPB9, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 //	GpioInit( &ioPin, UNUSEDPINPB10, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );
 //	GpioInit( &ioPin, UNUSEDPINPB11, PIN_ANALOGIC, PIN_PUSH_PULL, PIN_NO_PULL, 0 );

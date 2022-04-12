@@ -132,7 +132,7 @@ router.post('/verknuepfung', async (req, res) =>{
                     if(!ResultatUpdate.error)
                     {
                         return res.status(200).json({
-                            status: 200,
+                            status: 'Erfolg',
                             message: 'Hardwaresystem und Benutzer erfolgreich verknüpft.'
                         });
                     }else{

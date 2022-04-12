@@ -136,7 +136,6 @@ router.post('/Neu', async (req, res) =>{
                            const BToken = ResultatBToken[0].BToken;
                         sendFcmMessage(getMessageFormat(BToken, HWSName, BGrad, LGrad));
                         return res.status(200).json({
-                            status: 200,
                             message: 'Standort erfolgreich hinzugefügt.'
                         });
                     }else{

@@ -16,6 +16,8 @@ CubeCell_NeoPixel pixels(1, RGB, NEO_GRB + NEO_KHZ800);
 
 #include "Bewegungssensor.h"
 
+extern bool WurdeBestaetigt;
+
 
 /*loraWan default Dr when adr disabled*/
 #ifdef REGION_US915
@@ -184,7 +186,6 @@ static void McpsConfirm( McpsConfirm_t *mcpsConfirm )
 				// Check TxPower
 				// Check AckReceived
 				// Check NbTrials
-				PruefeConfirm(mcpsConfirm);
 				break;
 			}
 			case MCPS_PROPRIETARY:
@@ -269,6 +270,13 @@ static void McpsIndication( McpsIndication_t *mcpsIndication )
 	if( mcpsIndication->RxData == true )
 	{
 		downLinkDataHandle(mcpsIndication);
+	}
+
+	if(mcpsIndication->AckReceived)
+	{
+		WurdeBestaetigt = true;
+	}else{
+		WurdeBestaetigt = false;
 	}
 }
 

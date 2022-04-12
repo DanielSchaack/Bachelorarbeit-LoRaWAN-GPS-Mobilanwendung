@@ -47,7 +47,7 @@ router.post('/anmeldung', async (req, res) =>
                         }
                     }
                     return res.status(200).json({
-                        status: 200,
+                        status: 'Erfolg',
                         message: 'Erfolgreich angemeldet!'
                     });
                 }else{
@@ -111,7 +111,7 @@ router.post('/registrierung', async (req, res) =>{
                 //Prüfe den Rückgabewert, falls kein Fehler, dann melde Erfolg
                 if(!ResultatInsert.error){
                     return res.status(200).json({
-                        status: 200,
+                        status: 'Erfolg',
                         message: 'Benutzer erfolgreich hinzugefügt!'
                     });
                 }else{

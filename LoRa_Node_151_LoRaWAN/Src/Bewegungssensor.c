@@ -1,9 +1,7 @@
 #include "Bewegungssensor.h"
-
-
 bool BewegungInterruptAusgeloest;
 bool WurdeBewegt;
-
+bool WurdeBestaetigt;
 
 void BewegungssensorInit()
 {
@@ -11,7 +9,7 @@ void BewegungssensorInit()
 	WurdeBewegt = true;
 }
 
-void PruefeInterruptStatus(void)
+void PruefeInterruptStatus()
 {
 	if(BewegungInterruptAusgeloest==true)
 		{
@@ -22,29 +20,12 @@ void PruefeInterruptStatus(void)
 		}
 }
 
-void PruefeConfirm(McpsConfirm_t *mcpsConfirm)
-{
-	if(mcpsConfirm->AckReceived)
-	{
-		SensorAktivieren();
-		SetappTxDutyCycleInit(DutyCycle);
-	}else{
-		SetappTxDutyCycleInit(DutyCycle/2);
-	}
-}
-
-void SensorAktivieren()
-{
-	WurdeBewegt = false;
-	HoleDenBewegungssensorAusDemSchlaf();
-}
-
-void SetzeBewegungssensorInDenSchlaf(void)
+void SetzeBewegungssensorInDenSchlaf()
 {
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_RESET);
 }
 
-void HoleDenBewegungssensorAusDemSchlaf(void)
+void HoleDenBewegungssensorAusDemSchlaf()
 {
 	HAL_GPIO_WritePin(GPIOB, GPIO_PIN_14, GPIO_PIN_SET);
 }

@@ -188,7 +188,7 @@ void HAL_UART_TxCpltCallback( UART_HandleTypeDef *handle )
         Uart1.IrqNotify( UART_NOTIFY_TX );
     }
 }
-
+/*
 void HAL_UART_RxCpltCallback( UART_HandleTypeDef *handle )
 {
     if( IsFifoFull( &Uart1.FifoRx ) == false )
@@ -204,7 +204,7 @@ void HAL_UART_RxCpltCallback( UART_HandleTypeDef *handle )
 
     HAL_UART_Receive_IT( &UartHandle, &RxData, 1 );
 }
-
+*/
 void HAL_UART_ErrorCallback( UART_HandleTypeDef *handle )
 {
     HAL_UART_Receive_IT( &UartHandle, &RxData, 1 );

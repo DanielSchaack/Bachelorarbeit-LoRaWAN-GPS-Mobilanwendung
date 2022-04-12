@@ -305,7 +305,7 @@ void GNSS_LoadConfig(GNSS_StateHandle *GNSS) {
  * @param payload Just payload.
  * @return  Returns checksum.
  */
-uint8_t GNSS_Checksum(uint8_t class, uint8_t messageID, uint8_t dataLength,uint8_t *payload) {
+uint8_t GNSS_Checksum(uint8_t class, uint8_t messageID, uint8_t dataLength, uint8_t *payload) {
 //todo: Look at 32.4 UBX Checksum
 	return 0;
 }
